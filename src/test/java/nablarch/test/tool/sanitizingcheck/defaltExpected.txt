@@ -1,0 +1,91 @@
+HTML Comment: <!-- xxx -->,3,9
+JSP Declaration: <%! xxx %>,6,5
+Custom Tag: <jsp:declaration>,7,5
+JSP Expression: <%= xxx %>,12,5
+Custom Tag: <jsp:expression>,13,5
+JSP Scriptlet: <% xxx %>,19,5
+Custom Tag: <jsp:scriptlet>,23,5
+Custom Tag: <a:tag>,28,5
+Custom Tag: <a:tag>,29,5
+Custom Tag: <a:tag>,30,5
+JSP EL Element: ${ xxx },30,12
+JSP EL Element: ${ xxx },31,5
+JSP EL Element: ${ xxx },32,5
+JSP EL Element: ${ xxx },33,5
+JSP EL Element: ${ xxx },34,5
+JSP EL Element: ${ xxx },35,5
+JSP EL Element: ${ xxx },36,5
+JSP EL Element: ${ xxx },37,5
+JSP EL Element: ${ xxx },38,5
+JSP EL Element: ${ xxx },39,5
+JSP EL Element: ${ xxx },40,5
+JSP EL Element: ${ xxx },41,5
+JSP EL Element: ${ xxx },42,5
+JSP EL Element: ${ xxx },43,5
+JSP EL Element: ${ xxx },44,5
+JSP EL Element: ${ xxx },45,5
+JSP EL Element: ${ xxx },46,5
+JSP EL Element: ${ xxx },47,5
+JSP Directive: <%@ attribute %>,52,5
+Custom Tag: <jsp:directive.attribute>,53,5
+JSP Directive: <%@ variable %>,80,5
+Custom Tag: <jsp:directive.variable>,81,5
+Custom Tag: <jsp:attribute>,86,5
+Custom Tag: <jsp:attribute>,93,5
+Custom Tag: <jsp:body>,94,5
+Custom Tag: <jsp:element>,99,5
+Custom Tag: <jsp:element>,100,5
+Custom Tag: <jsp:element>,101,5
+Custom Tag: <jsp:attribute>,102,9
+Custom Tag: <jsp:body>,103,9
+Custom Tag: <jsp:element>,105,5
+Custom Tag: <jsp:attribute>,106,9
+Custom Tag: <jsp:body>,107,9
+Custom Tag: <jsp:element>,109,5
+Custom Tag: <jsp:attribute>,111,9
+JSP EL Element: ${ xxx },111,37
+Custom Tag: <jsp:body>,112,9
+JSP EL Element: ${ xxx },112,19
+Custom Tag: <jsp:doBody>,118,5
+Custom Tag: <jsp:doBody>,119,5
+Custom Tag: <jsp:forward>,123,5
+Custom Tag: <jsp:forward>,124,5
+Custom Tag: <jsp:forward>,125,5
+Custom Tag: <jsp:forward>,127,5
+Custom Tag: <jsp:forward>,132,5
+Custom Tag: <jsp:forward>,137,5
+Custom Tag: <jsp:forward>,144,5
+Custom Tag: <jsp:forward>,146,5
+Custom Tag: <jsp:forward>,151,5
+Custom Tag: <jsp:forward>,156,5
+Custom Tag: <jsp:getProperty>,163,1
+Custom Tag: <jsp:invoke>,207,5
+Custom Tag: <jsp:invoke>,208,5
+Custom Tag: <jsp:output>,211,5
+Custom Tag: <jsp:plugin>,215,5
+Custom Tag: <jsp:fallback>,221,9
+Custom Tag: <jsp:plugin>,224,5
+Custom Tag: <jsp:fallback>,230,9
+Custom Tag: <jsp:plugin>,233,5
+Custom Tag: <jsp:fallback>,239,9
+Custom Tag: <jsp:plugin>,243,5
+Custom Tag: <jsp:fallback>,249,9
+Custom Tag: <jsp:plugin>,252,5
+Custom Tag: <jsp:fallback>,258,9
+Custom Tag: <jsp:plugin>,261,5
+Custom Tag: <jsp:fallback>,267,9
+Custom Tag: <jsp:root>,271,5
+Custom Tag: <jsp:setProperty>,277,5
+Custom Tag: <jsp:setProperty>,278,5
+Custom Tag: <jsp:setProperty>,279,5
+Custom Tag: <jsp:setProperty>,282,5
+Custom Tag: <jsp:text>,286,5
+Custom Tag: <jsp:useBean>,292,5
+Custom Tag: <jsp:useBean>,293,5
+Custom Tag: <jsp:useBean>,294,5
+Custom Tag: <jsp:useBean>,295,5
+Custom Tag: <jsp:useBean>,298,5
+Custom Tag: <jsp:useBean>,301,5
+Custom Tag: <jsp:useBean>,305,5
+Custom Tag: <jsp:useBean>,306,5
+JSP EL Element: ${ xxx },313,6

@@ -1,0 +1,12 @@
+file-type:        "Fixed"
+text-encoding:    "Windows-31J"
+record-length:    50
+
+
+
+[Header]
+1   requestId   X(10)       # リクエストID
+11  userId      X(10)       # ユーザID
+21  resendFlag  X(1)  "0"   # 再送要求フラグ (0: 初回送信 1: 再送要求)
+22  statusCode  X(4)  "200" # ステータスコード
+26  message     X(25) "こんにちは"      # 予備領域

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-configuration xmlns="http://tis.co.jp/nablarch/component-configuration"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation="http://tis.co.jp/nablarch/component-configuration ../../../../fw/trunk/main/resources/component-configuration.xsd">
+    <import file="unit-test.xml"/>
+
+    <config-file file="nablarch/test/core/db/DbAccessTestSupportTest.config"/>
+
+    <!-- DbManagerの設定 -->
+    <component name="tranA" class="nablarch.core.db.transaction.SimpleDbTransactionManager">
+        <property name="dbTransactionName" value="tran-a"/>
+    </component>
+
+    <component name="tranB" class="nablarch.core.db.transaction.SimpleDbTransactionManager">
+        <property name="dbTransactionName" value="tran-b"/>
+    </component>
+</component-configuration>

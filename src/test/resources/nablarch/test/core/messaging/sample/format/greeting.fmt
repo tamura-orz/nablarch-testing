@@ -1,0 +1,7 @@
+file-type:        "Fixed"
+text-encoding:    "Windows-31J"
+record-length:    50
+
+[default]
+1   message       X(50)     # メッセージ
+

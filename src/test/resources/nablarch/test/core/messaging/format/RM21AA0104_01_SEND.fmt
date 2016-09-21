@@ -1,0 +1,10 @@
+file-type:        "Fixed"
+text-encoding:    "ms932"
+record-length:    90
+
+[data]
+1     userInfoId   X(20)
+21    userId X(10)
+31    loginId X(20)
+51    kanjiName N(20)
+71    kanaName N(20)

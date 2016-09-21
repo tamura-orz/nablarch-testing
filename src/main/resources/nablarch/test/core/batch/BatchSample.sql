@@ -1,0 +1,15 @@
+select =
+SELECT
+ *
+FROM
+ BATCH_SAMPLE
+
+
+update =
+UPDATE
+  BATCH_SAMPLE
+SET
+  COUNTER = ?,
+  UPDATE_DATE = ?
+WHERE
+  ID = ?

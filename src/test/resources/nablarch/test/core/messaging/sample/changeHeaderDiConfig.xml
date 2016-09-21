@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-configuration xmlns="http://tis.co.jp/nablarch/component-configuration">
+
+
+  <!-- 元の設定ファイル -->
+  <import file="nablarch/test/core/messaging/sample/diConfig.xml"/>
+
+
+  <!-- フレームワーク制御ヘッダー定義を変更する -->
+  <component  name="fwHeaderDefinition"
+              class="nablarch.fw.messaging.StandardFwHeaderDefinition">
+    <property name="formatFileName" value="anotherHeader"/>
+  </component>
+</component-configuration>

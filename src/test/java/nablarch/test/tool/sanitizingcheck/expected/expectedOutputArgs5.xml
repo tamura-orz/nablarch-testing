@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<result>
+  <item>
+    <path>C:\tisdev\workspace\Nablarch_tool_test\java\nablarch\tool\sanitizingcheck\testCheckSanitizing\testCheckSanitizing\testCheckSanitizing1Jsp.jsp</path>
+    <errors>
+      <error>&lt;%@ taglib (at line=1 column=1) is forbidden.</error>
+    </errors>
+  </item>
+  <item>
+    <path>C:\tisdev\workspace\Nablarch_tool_test\java\nablarch\tool\sanitizingcheck\testCheckSanitizing\testCheckSanitizing\testCheckSanitizing1Jsp0Error.jsp</path>
+    <errors>
+      <error>&lt;jsp:element (at line=1 column=1) is forbidden.</error>
+    </errors>
+  </item>
+  <item>
+    <path>C:\tisdev\workspace\Nablarch_tool_test\java\nablarch\tool\sanitizingcheck\testCheckSanitizing\testCheckSanitizing\testCheckSanitizing1Jsp2Error.jsp</path>
+    <errors>
+      <error>&lt;%@ taglib (at line=1 column=1) is forbidden.</error>
+      <error>&lt;jsp:element (at line=2 column=1) is forbidden.</error>
+    </errors>
+  </item>
+  <item>
+    <path>C:\tisdev\workspace\Nablarch_tool_test\java\nablarch\tool\sanitizingcheck\testCheckSanitizing\testCheckSanitizing\testCheckSanitizingNotClosed.jsp</path>
+    <errors>
+      <error>&lt;%@ taglib (at line=1 column=1) isn't closed.</error>
+    </errors>
+  </item>
+</result>

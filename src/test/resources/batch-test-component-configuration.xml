@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-configuration
+  xmlns = "http://tis.co.jp/nablarch/component-configuration">
+  
+  <!-- テストプロジェクトの共通設定 -->
+  <config-file file="db.config"/>
+  <!-- テストプロジェクトの共通設定 -->
+  <config-file file="unit-test.config"/>
+  
+  <!-- テストプロジェクトの共通設定 -->
+  <import file="db-default.xml"/>
+  <import file="override.xml"/>
+  <!-- テストプロジェクトの共通設定 -->
+  <import file="test-common.xml"/>
+  
+  <!-- ハンドラーキュー構成 -->
+  <list name="handlerQueue">
+    <!-- 終了コードマッピング -->
+    <component class="nablarch.fw.handler.StatusCodeConvertHandler" />
+  
+    <!-- 共通エラーハンドラー -->
+    <component class="nablarch.fw.handler.GlobalErrorHandler" />
+      
+    <!-- スレッドコンテキスト管理ハンドラ-->
+    <component class="nablarch.common.handler.threadcontext.ThreadContextHandler">
+      <property name="attributes">
+        <list>
+        <!-- ユーザID -->
+        <component class="nablarch.common.handler.threadcontext.UserIdAttribute" />
+        <!-- リクエストID -->
+        <component class="nablarch.common.handler.threadcontext.RequestIdAttribute" />
+        </list>
+      </property>
+    </component>
+    
+    <!-- 業務アクションディスパッチハンドラ -->
+    <component class="nablarch.fw.handler.RequestPathJavaPackageMapping">
+      <property name="basePackage" value="nablarch.test.core.messaging.sample"/>
+      <property name="immediate" value="false" />
+    </component>
+    
+    <!-- スレッド実行ハンドラ -->
+    <component class="nablarch.fw.handler.MultiThreadExecutionHandler">
+      <property name="concurrentNumber" value="1" />
+    </component>
+    
+    <!-- データベース接続管理ハンドラ (リクエストスレッド用)  -->
+    <component class="nablarch.common.handler.DbConnectionManagementHandler" />
+    
+    <!-- ループ・トランザクション制御ハンドラ -->
+    <component class="nablarch.fw.handler.LoopHandler">
+      <property name="transactionFactory" ref="transactionFactory" />
+    </component>
+
+    <!-- データリードハンドラ -->
+    <component class="nablarch.fw.handler.DataReadHandler" />
+    
+  </list>
+  <!-- ハンドラーキュー構成(END) -->
+  
+  <!-- モックのプロバイダ -->
+  <component name="messagingProvider"
+             class="nablarch.test.core.messaging.RequestTestingMessagingProvider" />
+            
+  
+  
+  <!-- MessageSenderの設定情報 -->
+  <config-file file="classpath:nablarch/test/core/messaging/SendSyncTest.config" />
+  <component name="filePathSetting"
+             class="nablarch.core.util.FilePathSetting">
+    <property name="basePathSettings">
+      <map>
+        <entry key="format" value="classpath:nablarch/test/core/messaging/format" />
+        <entry key="input" value="classpath:nablarch/test/core/messaging/sample/data" />
+      </map>
+    </property>
+    <property name="fileExtensions">
+      <map>
+        <entry key="format" value="fmt" />
+      </map>
+    </property>
+  </component>
+  
+</component-configuration>

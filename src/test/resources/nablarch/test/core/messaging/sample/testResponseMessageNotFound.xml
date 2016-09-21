@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-configuration xmlns="http://tis.co.jp/nablarch/component-configuration">
+
+
+  <import file="classpath:nablarch/test/core/messaging/sample/diConfig.xml"/>
+
+  <component name="messageReplyHandler" class="nablarch.test.NopHandler"/>
+
+</component-configuration>

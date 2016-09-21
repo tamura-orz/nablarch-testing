@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-configuration
+        xmlns="http://tis.co.jp/nablarch/component-configuration"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://tis.co.jp/nablarch/component-configuration ./component-configuration.xsd">
+
+  <!-- UTF-8用のコンポーネント名で定義したデータタイプ表の定義(ユニットテスト用に標準のマッピングを一箇所書き換えたもの) -->
+  <component name="dataTypeMapping_UTF-8" class="nablarch.test.core.file.BasicDataTypeMapping">
+    <property name="mappingTable">
+      <map>
+        <entry key="半角英字" value="X"/>
+        <entry key="半角数字" value="X"/>
+        <entry key="半角記号" value="X"/>
+        <entry key="半角カナ" value="X"/>
+        <entry key="半角英数字" value="X"/>
+        <entry key="半角英数字記号" value="X"/>
+        <entry key="半角" value="X"/>
+        <entry key="全角英字" value="N"/>
+        <entry key="全角数字" value="N"/>
+        <entry key="全角ひらがな" value="N"/>
+        <entry key="全角カタカナ" value="N"/>
+        <entry key="全角漢字" value="N"/>
+        <!-- ↓ デフォルトと変えてある項目 -->
+        <entry key="全角" value="XN"/>
+        <entry key="全半角" value="XN"/>
+        <entry key="数値" value="Z"/>
+        <entry key="符号無ゾーン10進数" value="Z"/>
+        <entry key="符号付ゾーン10進数" value="SZ"/>
+        <entry key="符号無パック10進数" value="P"/>
+        <entry key="符号付パック10進数" value="SP"/>
+        <entry key="符号無数値" value="X9"/>
+        <entry key="符号付数値" value="SX9"/>
+        <entry key="バイナリ" value="B"/>
+      </map>
+    </property>
+  </component>
+</component-configuration>

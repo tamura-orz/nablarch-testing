@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-configuration xmlns="http://tis.co.jp/nablarch/component-configuration">
+
+  <!-- 標準のテスト用構成 -->
+  <import file="nablarch/test/core/messaging/web/web-component-configuration-request-testing.xml"/>
+
+  <!-- テスト用コンフィグ -->
+  <config-file file="nablarch/test/core/messaging/XmlAssertAsStringTest.config" />
+  
+</component-configuration>

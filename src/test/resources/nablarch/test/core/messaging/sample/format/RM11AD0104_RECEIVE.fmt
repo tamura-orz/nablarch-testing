@@ -1,0 +1,17 @@
+# 
+# 共通定義部
+# 
+file-type:         "JSON"    # ファイルタイプ        
+text-encoding:     "UTF-8"  # 文字エンコーディング  
+
+#
+# Requestデータ
+#
+[request]
+1                id                      X       #id
+2                controlheader          OB
+[controlheader]                                  #フレームワーク制御項目            
+1                userid                  X       #ユーザID                          
+2                resendflg               X9  0   #再送要求フラグ                    
+3                requestId               X       #リクエストID                      
+4                statusCode              X       #ステータスコード                  

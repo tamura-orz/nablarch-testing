@@ -1,0 +1,13 @@
+# ファイルタイプ
+file-type: "Fixed"
+
+# 文字列型フィールドの文字エンコーディング
+text-encoding: "ms932"
+
+# 文字列型フィールドの文字エンコーディング
+record-length: 60
+
+[data]
+1     title   X(20)
+21    publisher X(20)
+41    authors N(20)

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<result>
+  <item>
+    <path>java\nablarch\tool\sanitizingcheck\jsp\all.jsp</path>
+    <errors>
+      <error>&lt;a:tag (at line=28 column=5) is forbidden.</error>
+    </errors>
+  </item>
+  <item>
+    <path>java\nablarch\tool\sanitizingcheck\jsp\USER-001.jsp</path>
+    <errors>
+      <error>&lt;c:if (at line=1 column=3124) is forbidden.</error>
+    </errors>
+  </item>
+  <item>
+    <path>java\nablarch\tool\sanitizingcheck\jsp\USER-002.jsp</path>
+    <errors>
+      <error>&lt;c:if (at line=1 column=6733) is forbidden.</error>
+      <error>&lt;li (at line=1 column=10428) is forbidden.</error>
+    </errors>
+  </item>
+  <item>
+    <path>java\nablarch\tool\sanitizingcheck\jsp\USER-004.jsp</path>
+    <errors>
+      <error>&lt;li (at line=1 column=3293) is forbidden.</error>
+    </errors>
+  </item>
+</result>

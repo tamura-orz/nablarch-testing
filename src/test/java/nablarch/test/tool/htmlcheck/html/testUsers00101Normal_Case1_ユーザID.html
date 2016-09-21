@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    
+    
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>ユーザ一覧照会</title>
+
+<link type="text/css" charset="UTF-8" href="../../htmlResources/css/reset.css" rel="stylesheet" />
+<link type="text/css" charset="UTF-8" href="../../htmlResources/css/nablarch_sample.css" rel="stylesheet" />
+    
+    <style type="text/css">
+        div.search {
+            width: 60%;
+            margin:auto;
+        }
+        
+        div.placeButton {
+            padding-top: 0.4em;
+            text-align:right;
+        }
+        
+        div.resultWrapper {
+            width: 85%;
+            margin:auto;
+        }
+        
+        div.resultArea {
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        div.hrArea {
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+        }
+        
+        select.selectGroup {
+            width: 20em;
+        }
+        
+        table.resultData {
+            width: 100%;
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+
+        table.conditionArea th {
+            width:300px;
+        }
+
+        table.conditionArea td {
+            width:400px;
+        }
+
+    </style>
+    
+    
+</head>
+
+<body>
+
+<div id="wrapper">
+
+
+
+
+<div id="hwrapper">
+    <div id="headerEtc">
+        
+            <form name="nablarch_form1" method="post">
+            名前：リクエスト単体テストユーザ
+            <span class="headerLeftSpace">日付：2010/9/14</span>
+            <span class="headerLeftSpace"><a class="logout" name="top" href="../../htmlResources/action/MenuAction/MENUS00101" onclick="return nablarch_submit(event, this);">トップメニュー</a></span>
+            <span class="headerLeftSpace"><a class="logout" name="logout" href="../../htmlResources/action/LoginAction/LOGIN00101" onclick="return nablarch_submit(event, this);">ログアウト</a></span>
+            
+<script type="text/javascript">
+function nablarch_submit(event, element) {
+    
+    var isAnchor = element.tagName.match(/a/i);
+    
+    var form;
+    if (isAnchor) {
+        var parent = element.parentNode;
+        while (parent != null && !parent.tagName.match(/^form$|^body$/i)) {
+            parent = parent.parentNode;
+        }
+        if (parent == null || !parent.tagName.match(/form/i)) {
+            return false;
+        }
+        form = parent;
+    } else {
+        form = element.form;
+    }
+    
+    if ((typeof form.onsubmit) == "function") {
+        var onSubmitFunc = form.onsubmit;
+        var ret = onSubmitFunc.call(form, event);
+        if ((ret != undefined && ret != null) && ret == false) {
+            return false;
+        }
+    }
+    
+    var name = element.name;
+    
+    var formData = nablarch_submission_info[form.name];
+    var submissionData = formData[name];
+    
+    if (!submissionData.allowDoubleSubmission) {
+        element.onclick = nablarch_stopSubmission;
+        if (!isAnchor) {
+            element.disabled = true;
+        }
+    }
+    
+    var createdParamsData = nablarch_created_params[form.name];
+    var params = submissionData.params;
+    for (var name in params) {
+        if (createdParamsData[name] == null) {
+            var hidden = document.createElement("input");
+            hidden.type = "hidden";
+            hidden.name = name;
+            hidden.value = params[name];
+            form.appendChild(hidden);
+            createdParamsData[name] = name;
+        } else {
+            var existHidden = form[name];
+            if (existHidden != null) {
+                existHidden.value = params[name];
+            }
+        }
+    }
+    
+    form.action = submissionData.action;
+    form.submit();
+    
+    return false;
+}
+function nablarch_stopSubmission() {
+    if ((typeof nablarch_handleDoubleSubmission) == "function") {
+         nablarch_handleDoubleSubmission(this);
+    }
+    return false;
+}
+var nablarch_submission_info = {};
+var nablarch_created_params = {};
+nablarch_submission_info.nablarch_form1 = {
+top: { "action": "/action/MenuAction/MENUS00101;jsessionid=1tio52t6xm3c51qxhdp432b4p0", "allowDoubleSubmission": true, "params": {} },
+logout: { "action": "/action/LoginAction/LOGIN00101;jsessionid=1tio52t6xm3c51qxhdp432b4p0", "allowDoubleSubmission": true, "params": {} }
+};
+nablarch_created_params.nablarch_form1 = {};
+</script>
+</form>
+        
+    </div>
+    <div id="headerTitle">Nablarch Sample Application</div>
+    <div id="appHeader">ユーザ一覧照会</div>
+</div>
+
+
+<div id="mainContents">
+
+
+
+<div id="error">
+
+</div>
+<noscript><ul class="nablarch_errors"><li class="nablarch_error">このページを使用するには、Javascriptを有効にする必要があります。</li></ul></noscript>
+
+
+<div id="mainContentsInner" >
+<form name="nablarch_form2" method="post">
+    <div class="search">
+        <table class="data conditionArea" width="100%">
+            <tr>
+                <th>ログインID</th>
+                <td>
+                    <input type="text" name="loginId" value="LI00001" size="25" maxlength="20" />
+                    
+                </td>
+            </tr>
+            <tr>
+                <th>漢字氏名</th>
+                <td>
+                    <input type="text" name="kanjiName" value="" size="25" maxlength="20" />
+                    
+                </td>
+            </tr>
+            <tr>
+                <th>カナ氏名</th>
+                <td>
+                    <input type="text" name="kanaName" value="" size="25" maxlength="20" />
+                    
+                </td>
+            </tr>
+            <tr>
+                <th>グループ</th>
+                <td>
+                    <select class="selectGroup" name="ugroupId">
+<option value=""></option>
+<option value="0000000001">0000000001:総務部</option>
+<option value="0000000002">0000000002:人事部</option>
+<option value="0000000003">0000000003:テスト用</option></select>
+                    
+                </td>
+            </tr>
+        </table>
+        <div id="buttons" class="placeButton">
+            <input class="cbuttons" type="reset" value="リセット" />
+            <input class="cbuttons" type="button" name="search" value="検索" onclick="return nablarch_submit(event, this);" />
+        </div>
+    </div>
+
+<script type="text/javascript">
+nablarch_submission_info.nablarch_form2 = {
+search: { "action": "./USERS00101;jsessionid=1tio52t6xm3c51qxhdp432b4p0", "allowDoubleSubmission": true, "params": {} }
+};
+nablarch_created_params.nablarch_form2 = {};
+</script>
+</form>
+<div class="hrArea">
+<hr />
+</div>
+
+
+
+<div class="resultWrapper">
+
+    <div class="resultArea">
+     検索結果 1件
+    </div>
+        <table class="data resultData"> 
+            <tr>
+                <th>ログインID</th>
+                <th>漢字氏名</th>
+                <th>カナ氏名</th>
+                <th>グループ</th>
+                <th>内線番号</th>
+                <th>メールアドレス</th>
+            </tr>
+            
+                <tr>
+                    <td>LI00001</td>
+                    <td>奈武羅太郎</td>
+                    <td>ナブラタロウ</td>
+                    <td>0000000001:総務部</td>
+                    <td>01-0001</td>
+                    <td>tarou@nabla.com</td>
+                </tr>
+            
+        </table>
+    </div>
+<b>test</b>
+
+</div>
+</div>
+<div id="footer">
+    <form name="nablarch_form3" method="post">
+    <ul class="footerList">
+        <li><a name="top" href="../../htmlResources/action/MenuAction/MENUS00101" onclick="return nablarch_submit(event, this);">トップメニュー</a></li>
+        <li><a name="user" href="../../htmlResources/action/management/user/UserRegisterAction/MENUS00103" onclick="return nablarch_submit(event, this);">ユーザ情報登録</a></li>
+    </ul>
+    
+<script type="text/javascript">
+nablarch_submission_info.nablarch_form3 = {
+top: { "action": "/action/MenuAction/MENUS00101;jsessionid=1tio52t6xm3c51qxhdp432b4p0", "allowDoubleSubmission": true, "params": {} },
+user: { "action": "/action/management/user/UserRegisterAction/MENUS00103;jsessionid=1tio52t6xm3c51qxhdp432b4p0", "allowDoubleSubmission": true, "params": {} }
+};
+nablarch_created_params.nablarch_form3 = {};
+</script>
+</form>
+</div>
+</div>
+</body>
+</html>

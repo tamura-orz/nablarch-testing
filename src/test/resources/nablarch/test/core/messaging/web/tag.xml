@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-configuration xmlns="http://tis.co.jp/nablarch/component-configuration"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation="http://tis.co.jp/nablarch/component-configuration ./component-configuration.xsd">
+
+    <component name="customTagConfig"
+               class="nablarch.common.web.tag.CustomTagConfig">
+        <property name="elementLabelPattern" value="$VALUE$:$LABEL$" />
+        <property name="host" value="localhost" />
+        <property name="port" value="8090" />
+        <property name="securePort" value="443" />
+        <property name="useHiddenEncryption" value="false" />
+        <property name="noHiddenEncryptionRequestIds">
+            <list>
+                <value>MENU00101</value>
+                <value>MENU99991</value>
+                <value>MENU99992</value>
+                <value>CUSTOM01301</value>
+                <value>CUSTOM01302</value>
+                <value>CUSTOM01303</value>
+                <value>CUSTOM01304</value>
+                <value>CUSTOM01305</value>
+                <value>CUSTOM01306</value>
+                <value>CUSTOM01307</value>
+                <value>CUSTOM01308</value>
+            </list>
+        </property>
+        <property name="datePattern" value="yyyy/MM/dd" />
+        <property name="dateTimePattern" value="yyyy/MM/dd HH:mm:ss" />
+    </component>
+
+    <map name="valueFormatters">
+        <entry key="dateString">
+            <value-component class="nablarch.common.web.tag.DateStringFormatter" />
+        </entry>
+        <entry key="dateTime">
+            <value-component class="nablarch.common.web.tag.DateTimeFormatter" />
+        </entry>
+        <entry key="decimal">
+            <value-component class="nablarch.common.web.tag.DecimalFormatter" />
+        </entry>
+    </map>
+
+</component-configuration>

@@ -1,0 +1,1099 @@
+options {
+    STATIC=false;
+    DEBUG_PARSER=false;
+    ERROR_REPORTING=false;
+    IGNORE_CASE = true;
+}
+
+PARSER_BEGIN(Parser)
+package nablarch.test.tool.htmlcheck.parser;
+
+public class
+Parser
+{
+}
+
+PARSER_END(Parser)
+
+SKIP: {
+   <WHITE_SPACE: " "  | "\t" | "\f" >
+| <LINE_TERMINATOR: "\n" | "\r" >
+}
+
+SKIP: { "<!--": IN_COMMENT }
+    <IN_COMMENT> SKIP: { < ~["-"] > | <"-" ~["-"]> }
+    <IN_COMMENT> SKIP: { "-->": DEFAULT }  
+
+TOKEN: {
+  <STRING:
+    "\"" (<CHAR_WITHOUT_DQUOT> | <WS>)* "\""
+  | "'" (<CHAR_WITHOUT_QUOT>  | <WS>)* "'"
+  >
+| <#CHAR_WITHOUT_QUOT:  ["\u0020"-"\u0026", "\u0028"-"\uFFFF"]>
+| <#CHAR_WITHOUT_DQUOT: ["\u0020"-"\u0021", "\u0023"-"\uFFFF"] >
+| <WORD: (<LCLETTER> | ".") ( (<LCLETTER> | <DIGIT> | "." | "-")*
+         (<LCLETTER> | <DIGIT> | ".") )? >
+| <HEXNUM: "#" <HEXINT> >
+| <INT:    (<DIGIT>)+ >
+| <#HEXINT: (<HEXDIGIT>)+ >
+| <#DIGIT: ["0"-"9"] >
+| <#HEXDIGIT: ["0"-"9", "a"-"f"] >
+| <#LCLETTER: ["a"-"z"] >
+| <#WS: (" " | "\t" | "\f" | "\n" | "\r")+ >
+| <DOCTYPE: "<!DOCTYPE" <WS> "html" <WS> "PUBLIC" (<WS> <STRING>)+ (<WS>)? ">" >
+}
+
+TOKEN: {
+  <PCDATA: ([
+    "\u0021"          //excluding "
+  , "\u0023"-"\u0024" //excluding %
+  , "\u0026"-"\u002C" //excluding -
+  , "\u002E"          //excluding /
+  , "\u0030"-"\u003B" //excluding < = >
+  , "\u003F"-"\uFFFF"
+  ])+ >
+}
+
+void
+text(): {}
+{
+  <WORD> | <PCDATA> | <INT> | textTag() | "\"" | "=" | "%" | "-" | "/"
+}
+
+void
+pcData(): {}
+{
+    ( <WORD> | <PCDATA> | <STRING> | <INT> | <HEXNUM>
+      | "\"" | "%" | "/" | "=" | ">" | "-"  | br()
+    )+
+}
+
+void
+attr(): {}
+{
+    attrName() ( "="  <STRING>  )?
+}
+
+void
+attrName():
+{
+    Token t;
+}
+{
+    t = <WORD>
+    {jjtThis.value = t;}
+}
+
+void
+xmlDecl(): {}
+{
+    <"<?xml" <WS>> (attr())* "?>"
+}
+
+SimpleNode
+document():
+{
+    Token t;
+}
+{
+  (xmlDecl())? (<DOCTYPE>)? html()
+  { return jjtThis; }
+}
+
+void
+head():
+{
+    Token t;
+}
+{
+    ( t = <"<head" <WS>> (attr())* ">" | t = "<head" ">" ) (headElement())* "</head>"
+    {jjtThis.value = t;}
+}
+
+void
+headElement(): {}
+{
+  title()
+| script()
+| style()
+| base()
+| meta()
+| link()
+}
+
+void
+base():
+{
+    Token t;
+}
+{
+    ( t = <"<base" <WS>> (attr())* (">" | "/>") | t = "<base" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+meta():
+{
+    Token t;
+}
+{
+    ( t = <"<meta" <WS>> (attr())* (">" | "/>") | t = "<meta" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+isindex() :
+{
+    Token t;
+}
+{
+    ( t = <"<isindex" <WS>> (attr())* (">" | "/>") | t = "<isindex" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+link():
+{
+    Token t;
+}
+{
+    ( t = <"<link" <WS>> (attr())* (">" | "/>") | t = "<link" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+title():
+{
+    Token t;
+}
+{
+    ( t = <"<title" <WS>> (attr())* ">" | t = "<title" ">" ) (pcData())? "</title>"
+    {jjtThis.value = t;}
+}
+
+void
+script():
+{
+    Token t;
+}
+{
+    ( t = <"<script" <WS>> (attr())* ">" | t = "<script" ">" ) (pcData())? "</script>"
+    {jjtThis.value = t;}
+}
+
+void
+noscript():
+{
+    Token t;
+}
+{
+    ( t = <"<noscript" <WS>> (attr())* ">" | t = "<noscript" ">" ) (block() | text())* "</noscript>"
+    {jjtThis.value = t;}
+}
+
+void
+style():
+{
+    Token t;
+}
+{
+    ( t = <"<style" <WS>> (attr())* ">" | t = "<style" ">" ) (pcData())? "</style>"
+    {jjtThis.value = t;}
+}
+
+void
+html():
+{
+    Token t;
+}
+{
+    ( t = <"<html" <WS>> (attr())* ">" | t = "<html" ">" ) (head())? (body() | frameset())? "</html>"
+    {jjtThis.value = t;}
+}
+
+void
+body():
+{
+    Token t;
+}
+{
+    ( t = <"<body" <WS>> (attr())* ">" | t = "<body" ">" ) ( bodyContent() )* "</body>"
+    {jjtThis.value = t;}
+}
+
+void
+bodyContent(): {}
+{
+  heading() | block() | address() | text()
+}
+
+void
+heading(): {}
+{
+  h1() | h2() | h3() | h4() | h5() | h6()
+}
+
+void
+block(): {}
+{
+  paragraph()  | list()     | preformatted() | div() | center()
+| blockquote() | hr()       | table()        | noscript() | script()
+| select()     | textarea() | frameset()     | bdo()
+}
+
+void
+phrase(): {}
+{
+  emphasize()    | strong()   | definition() | code() | sampleOutput()
+| keyboardText() | variable() | citation()   | span()
+| input()        | isindex() 
+}
+
+void
+special(): {}
+{
+  anchor() | img() | map() | br()
+| basefont() | applet() | fontDefinition()
+| iframe()   | object() | q()
+}
+
+void
+fontDefinition():
+{
+    Token t;
+}
+{
+    ( t = <"<font" <WS>> (attr())* ">" | t = "<font" ">" ) (text())* "</font>"
+    {jjtThis.value = t;}
+}
+
+void
+basefont():
+{
+    Token t;
+}
+{
+    ( t = <"<basefont" <WS>> (attr())* (">" | "/>") | t = "<basefont" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+applet():
+{
+    Token t;
+}
+{
+    ( t = <"<applet" <WS>> (attr())* ">" | t = "<applet" ">" )
+      (param())* (pcData())* "</applet>"
+    {jjtThis.value = t;}
+}
+
+void
+param():
+{
+    Token t;
+}
+{
+    ( t = <"<param" <WS>> (attr())* (">" | "/>") | t = "<param" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+textTag(): {}
+{
+  phrase() | special() | form() | font() | button() | label()
+}
+
+void
+font(): {}
+{
+  teletype() | italic() | bold()      | underline()   | strike()
+| big()      | small()  | subscript() | superscript() | abbr()
+| s()        | acronym()| del()       | ins()
+}
+
+void
+hr():
+{
+    Token t;
+}
+{
+    ( t = <"<hr" <WS>> (attr())* (">" | "/>") | t = "<hr" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+br():
+{
+    Token t;
+}
+{
+    ( t = <"<br" <WS>> (attr())* (">" | "/>") | t = "<br" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+img():
+{
+    Token t;
+}
+{
+    ( t = <"<img" <WS>> (attr())* (">" | "/>") | t = "<img" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+button():
+{
+    Token t;
+}
+{
+    ( t = <"<button" <WS>> (attr())* ">" | t = "<button" ">" ) ( block() | text() )* "</button>"
+    {jjtThis.value = t;}
+}
+
+void
+h1():
+{
+    Token t;
+}
+{
+    ( t = <"<h1" <WS>> (attr())* ">" | t = "<h1" ">" ) (block() | text())* "</h1>"
+    {jjtThis.value = t;}
+}
+
+void
+h2(): {
+    Token t;
+}
+{
+    ( t = <"<h2" <WS>> (attr())* ">" | t = "<h2" ">" ) (block() | text())* "</h2>"
+    {jjtThis.value = t;}
+}
+
+void
+h3():
+{
+    Token t;
+}
+{
+    ( t = <"<h3" <WS>> (attr())* ">" | t = "<h3" ">" ) (block() | text())* "</h3>"
+    {jjtThis.value = t;}
+}
+
+void
+h4():
+{
+    Token t;
+}
+{
+    ( t = <"<h4" <WS>> (attr())* ">" | t = "<h4" ">" ) (block() | text())* "</h4>"
+    {jjtThis.value = t;}
+}
+
+void
+h5():
+{
+    Token t;
+}
+{
+    ( t = <"<h5" <WS>> (attr())* ">" | t = "<h5" ">" ) (block() | text())* "</h5>"
+    {jjtThis.value = t;}
+}
+
+void
+h6(): {
+    Token t;
+}
+{
+    ( t = <"<h6" <WS>> (attr())* ">" | t = "<h6" ">" ) (block() | text())* "</h6>"
+    {jjtThis.value = t;}
+}
+
+void
+address():
+{
+    Token t;
+}
+{
+    ( t = <"<address" <WS>> (attr())* ">" | t = "<address" ">" ) (pcData())? "</address>"
+    {jjtThis.value = t;}
+}
+
+void
+paragraph():
+{
+    Token t;
+}
+{
+    ( t = <"<p" <WS>> (attr())* ">" | t = "<p" ">" ) ( text() )* "</p>"
+    {jjtThis.value = t;}
+}
+
+void
+list(): {}
+{
+  unorderedList()
+| orderedList()
+| defList()
+| menu()
+| dir()
+}
+
+void
+unorderedList():
+{
+    Token t;
+}
+{
+    ( t = <"<ul" <WS>> (attr())* ">" | t = "<ul" ">" ) (text())? (listItem())* "</ul>"
+    {jjtThis.value = t;}
+}
+
+void
+orderedList():
+{
+    Token t;
+}
+{
+    ( t = <"<ol" <WS>> (attr())* ">" | t = "<ol" ">" ) (text())? (listItem())* "</ol>"
+    {jjtThis.value = t;}
+}
+
+void
+defList():
+{
+    Token t;
+}
+{
+    ( t = <"<dl" <WS>> (attr())* ">" | t = "<dl" ">" ) (text())? (defListItem())* "</dl>"
+    {jjtThis.value = t;}
+}
+
+void
+listItem():
+{
+    Token t;
+}
+{
+    ( t = <"<li" <WS>> (attr())* ">" | t = "<li" ">" ) ( text() | list() )* "</li>" (pcData())?
+    {jjtThis.value = t;}
+}
+
+void
+defListItem(): {}
+{
+  dt() | dd()
+}
+
+void
+dt():
+{
+    Token t;
+}
+{
+    ( t = <"<dt" <WS>> (attr())* ">" | t = "<dt" ">" ) ( text() )* "</dt>" (pcData())?
+    {jjtThis.value = t;}
+}
+
+void
+dd():
+{
+    Token t;
+}
+{
+    ( t = <"<dd" <WS>> (attr())* ">" | t = "<dd" ">" ) ( text() | block() )* "</dd>" (pcData())?
+    {jjtThis.value = t;}
+}
+
+void
+dir():
+{
+    Token t;
+}
+{
+    ( t = <"<dir" <WS>> (attr())* ">" | t = "<dir" ">" ) ( listItem() )* "</dir>"
+    {jjtThis.value = t;}
+}
+
+void
+menu():
+{
+    Token t;
+}
+{
+    ( t = <"<menu" <WS>> (attr())* ">" | t = "<menu" ">" ) ( listItem() )* "</menu>"
+    {jjtThis.value = t;}
+}
+
+void
+preformatted():
+{
+    Token t;
+}
+{
+    ( t = <"<pre" <WS>> (attr())* ">" | t = "<pre" ">" ) ( text() )* "</pre>"
+    {jjtThis.value = t;}
+}
+
+void
+div():
+{
+    Token t;
+}
+{
+    ( t = <"<div" <WS>> (attr())* ">" | t = "<div" ">" ) ( bodyContent() )* "</div>"
+    {jjtThis.value = t;}
+}
+
+void
+center():
+{
+    Token t;
+}
+{
+    ( t = <"<center" <WS>> (attr())* ">" | t = "<center" ">" ) ( bodyContent() )* "</center>"
+    {jjtThis.value = t;}
+}
+
+void
+blockquote():
+{
+    Token t;
+}
+{
+    ( t = <"<blockquote" <WS>> (attr())* ">" | t = "<blockquote" ">" ) (block() | pcData())? "</blockquote>"
+    {jjtThis.value = t;}
+}
+
+void
+q():
+{
+    Token t;
+}
+{
+    ( t = <"<q" <WS>> (attr())* ">" | t = "<q" ">" ) (pcData() | textTag() )* "</q>"
+    {jjtThis.value = t;}
+}
+
+void
+form():
+{
+    Token t;
+}
+{
+    ( t = <"<form" <WS>> (attr())* ">" | t = "<form" ">" ) (fieldset() | bodyContent() )* "</form>"
+    {jjtThis.value = t;}
+}
+
+void
+input():
+{
+    Token t;
+}
+{
+    ( t = <"<input" <WS>> (attr())* (">" | "/>") | t = "<input" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+table():
+{
+    Token t;
+}
+{
+    ( t = <"<table" <WS>> (attr())* ">" | t = "<table" ">" ) (caption())? (colgroup() | col())* (thead() | tfoot() | tbody() | tr())* "</table>"
+    {jjtThis.value = t;}
+}
+
+void
+colgroup():
+{
+    Token t;
+}
+{
+    ( t = <"<colgroup" <WS>> (attr())* ">" | t = "<colgroup" ">" ) (col())* "</colgroup>"
+    {jjtThis.value = t;}
+}
+
+void
+col():
+{
+    Token t;
+}
+{
+    ( t = <"<col" <WS>> (attr())* (">" | "/>") | t = "<col" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+tbody():
+{
+    Token t = null;
+}
+{
+    ( t = <"<tbody" <WS>> (attr())* ">" | t = "<tbody" ">" )
+    {jjtThis.value = t;}
+    (tr())* "</tbody>"
+    
+}
+
+void
+thead():
+{
+    Token t;
+}
+{
+    ( t = <"<thead" <WS>> (attr())* ">" | t = "<thead" ">" )
+    {jjtThis.value = t;}
+    (tr())* "</thead>"
+    
+}
+
+void
+tfoot():
+{
+    Token t;
+}
+{
+    ( t = <"<tfoot" <WS>> (attr())* ">" | t = "<tfoot" ">" )
+    {jjtThis.value = t;}
+    (tr())* "</tfoot>"
+}
+
+void
+caption():
+{
+    Token t;
+}
+{
+    ( t = <"<caption" <WS>> (attr())* ">" | t = "<caption" ">" ) (text())* "</caption>"
+    {jjtThis.value = t;}
+}
+
+void
+tr():
+{
+    Token t;
+}
+{
+    ( t = <"<tr" <WS>> (attr())* ">" | t = "<tr" ">" ) (pcData())? (th()|td())* "</tr>" (pcData())?
+    {jjtThis.value = t;}
+}
+
+void
+th():
+{
+    Token t;
+}
+{
+    ( t = <"<th" <WS>> (attr())* ">" | t = "<th" ">" ) (bodyContent())* "</th>" (pcData())?
+    {jjtThis.value = t;}
+}
+
+void
+td():
+{
+    Token t;
+}
+{
+    ( t = <"<td" <WS>> (attr())* ">" | t = "<td" ">" ) (bodyContent())* "</td>" (pcData())?
+    {jjtThis.value = t;}
+}
+
+void
+teletype():
+{
+    Token t;
+}
+{
+    ( t = <"<tt" <WS>> (attr())* ">" | t = "<tt" ">" ) ( text() )* "</tt>"
+    {jjtThis.value = t;}
+  
+}
+
+void
+italic():
+{
+    Token t;
+}
+{
+    ( t = <"<i" <WS>> (attr())* ">" | t = "<i" ">" ) ( text() )* "</i>"
+    {jjtThis.value = t;}
+}
+
+void
+bold():
+{
+    Token t;
+}
+{
+    ( t = <"<b" <WS>> (attr())* ">" | t = "<b" ">" ) ( text() )* "</b>"
+    {jjtThis.value = t;}
+}
+
+void
+underline():
+{
+    Token t;
+}
+{
+    ( t = <"<u" <WS>> (attr())* ">" | t = "<u" ">" ) ( text() )* "</u>"
+    {jjtThis.value = t;}
+}
+
+void
+strike():
+{
+    Token t;
+}
+{
+    ( t = <"<strike" <WS>> (attr())* ">" | t = "<strike" ">" ) ( text() )* "</strike>"
+    {jjtThis.value = t;}
+}
+
+void
+s():
+{
+    Token t;
+}
+{
+    ( t = <"<s" <WS>> (attr())* ">" | t = "<s" ">" ) ( text() )* "</s>"
+    {jjtThis.value = t;}
+}
+
+void
+del():
+{
+    Token t;
+}
+{
+    ( t = <"<del" <WS>> (attr())* ">" | t = "<del" ">" ) ( block() | text() )* "</del>"
+    {jjtThis.value = t;}
+}
+
+void
+ins():
+{
+    Token t;
+}
+{
+    ( t = <"<ins" <WS>> (attr())* ">" | t = "<ins" ">" ) ( block() | text() )* "</ins>"
+    {jjtThis.value = t;}
+}
+
+void
+big():
+{
+    Token t;
+}
+{
+    ( t = <"<big" <WS>> (attr())* ">" | t = "<big" ">" ) ( text() )* "</big>"
+    {jjtThis.value = t;}
+}
+
+void
+small():
+{
+    Token t;
+}
+{
+    ( t = <"<small" <WS>> (attr())* ">" | t = "<small" ">" ) ( text() )* "</small>"
+    {jjtThis.value = t;}
+}
+
+void
+subscript():
+{
+    Token t;
+}
+{
+    ( t = <"<sub" <WS>> (attr())* ">" | t = "<sub" ">" ) ( text() )* "</sub>"
+    {jjtThis.value = t;}
+}
+
+void
+superscript():
+{
+    Token t;
+}
+{
+    ( t = <"<sup" <WS>> (attr())* ">" | t = "<sup" ">" ) ( text() )* "</sup>"
+    {jjtThis.value = t;}
+}
+
+void
+emphasize():
+{
+    Token t;
+}
+{
+    ( t = <"<em" <WS>> (attr())* ">" | t = "<em" ">" ) ( text() )* "</em>"
+    {jjtThis.value = t;}
+}
+
+void
+strong():
+{
+    Token t;
+}
+{
+    ( t = <"<strong" <WS>> (attr())* ">" | t = "<strong" ">" ) ( text() )* "</strong>"
+    {jjtThis.value = t;}
+}
+
+void
+definition():
+{
+    Token t;
+}
+{
+    ( t = <"<dfn" <WS>> (attr())* ">" | t = "<dfn" ">" ) ( text() )* "</dfn>"
+    {jjtThis.value = t;}
+}
+
+void
+span():
+{
+    Token t;
+}
+{
+    ( t = <"<span" <WS>> (attr())* ">" | t = "<span" ">" ) ( text() )* "</span>"
+    {jjtThis.value = t;}
+}
+
+void
+code():
+{
+    Token t;
+}
+{
+    ( t = <"<code" <WS>> (attr())* ">" | t = "<code" ">" ) ( text() )* "</code>"
+    {jjtThis.value = t;}
+}
+
+void
+sampleOutput():
+{
+    Token t;
+}
+{
+    ( t = <"<samp" <WS>> (attr())* ">" | t = "<samp" ">" ) ( text() )* "</samp>"
+    {jjtThis.value = t;}
+}
+
+void
+abbr():
+{
+    Token t;
+}
+{
+    ( t = <"<abbr" <WS>> (attr())* ">" | t = "<abbr" ">" ) ( text() )* "</abbr>"
+    {jjtThis.value = t;}
+}
+
+void
+acronym():
+{
+    Token t;
+}
+{
+    ( t = <"<acronym" <WS>> (attr())* ">" | t = "<acronym" ">" ) ( text() )* "</acronym>"
+    {jjtThis.value = t;}
+}
+
+void
+bdo():
+{
+    Token t;
+}
+{
+    ( t = <"<bdo" <WS>> (attr())* ">" | t = "<bdo" ">" ) ( text() )* "</bdo>"
+    {jjtThis.value = t;}
+}
+
+void
+keyboardText():
+{
+    Token t;
+}
+{
+    ( t = <"<kbd" <WS>> (attr())* ">" | t = "<kbd" ">" ) ( text() )* "</kbd>"
+    {jjtThis.value = t;}
+}
+
+void
+variable():
+{
+    Token t;
+}
+{
+    ( t = <"<var" <WS>> (attr())* ">" | t = "<var" ">" ) ( text() )* "</var>"
+    {jjtThis.value = t;}
+}
+
+void
+citation():
+{
+    Token t;
+}
+{
+    ( t = <"<cite" <WS>> (attr())* ">" | t = "<cite" ">" ) ( text() )* "</cite>"
+    {jjtThis.value = t;}
+}
+
+void
+select():
+{
+    Token t;
+}
+{
+    ( t = <"<select" <WS>> (attr())* ">" | t = "<select" ">" ) (pcData())? (selectOption())* "</select>"
+    {jjtThis.value = t;}
+}
+
+void
+selectOption(): {}
+{
+    option() | optgroup()
+}
+
+void
+optgroup():
+{
+    Token t;
+}
+{
+    ( t = <"<optgroup" <WS>> (attr())* ">" | t = "<optgroup" ">" ) (optgroup() | option())* "</optgroup>"
+    {jjtThis.value = t;}
+}
+
+void
+option():
+{
+    Token t;
+}
+{
+    ( t = <"<option" <WS>> (attr())* ">" | t = "<option" ">" ) (pcData())? "</option>"
+    {jjtThis.value = t;}
+}
+
+void
+textarea():
+{
+    Token t;
+}
+{
+    ( t = <"<textarea" <WS>> (attr())* ">" | t = "<textarea" ">" ) (pcData())? "</textarea>"
+    {jjtThis.value = t;}
+}
+
+void
+fieldset():
+{
+    Token t;
+}
+{
+    ( t = <"<fieldset" <WS>> (attr())* ">" | t = "<fieldset" ">" ) (legend())? ( block() | text() )* "</fieldset>"
+    {jjtThis.value = t;}
+}
+
+void
+legend():
+{
+    Token t;
+}
+{
+    ( t = <"<legend" <WS>> (attr())* ">" | t = "<legend" ">" ) (text())* "</legend>"
+    {jjtThis.value = t;}
+}
+
+void
+frameset():
+{
+    Token t;
+}
+{
+    ( t = <"<frameset" <WS>> (attr())* ">" | t = "<frameset" ">" ) (frameset() | frame() | noframes())* "</frameset>"
+    {jjtThis.value = t;}
+}
+
+void
+frame():
+{
+    Token t;
+}
+{
+    ( t = <"<frame" <WS>> (attr())* (">" | "/>") | t = "<frame" (">" | "/>") )
+    {jjtThis.value = t;}
+}
+
+void
+noframes():
+{
+    Token t;
+}
+{
+    ( t = <"<noframes" <WS>> (attr())* ">" | t = "<noframes" ">" ) ( body() | block() | text() )* "</noframes>"
+    {jjtThis.value = t;}
+}
+
+void
+iframe():
+{
+    Token t;
+}
+{
+    ( t = <"<iframe" <WS>> (attr())* ">" | t = "<iframe" ">" ) ( block() | text() )* "</iframe>"
+    {jjtThis.value = t;}
+}
+
+void
+object():
+{
+    Token t;
+}
+{
+    ( t = <"<object" <WS>> (attr())* ">" | t = "<object" ">" ) ( param() | block() | text() )* "</object>"
+    {jjtThis.value = t;}
+}
+
+void
+label():
+{
+    Token t;
+}
+{
+    ( t = <"<label" <WS>> (attr())* ">" | t = "<label" ">" ) ( block() | text() )* "</label>"
+    {jjtThis.value = t;}
+}
+
+void
+anchor():
+{
+    Token t;
+}
+{
+    ( t = <"<a" <WS>> (attr())* ">" | t = "<a" ">" ) (text())* "</a>"
+    {jjtThis.value = t;}
+}
+
+void
+map():
+{
+    Token t;
+}
+{
+    ( t = <"<map" <WS>> (attr())* ">" | t = "<map" ">" ) (area())* "</map>"
+    {jjtThis.value = t;}
+}
+
+void
+area():
+{
+    Token t;
+}
+{
+    ( t = <"<area" <WS>> (attr())* (">" | "/>") | t = "<area" (">" | "/>") )
+    {jjtThis.value = t;}
+}

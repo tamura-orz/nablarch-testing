@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<result>
+  <item>
+    <path>C:\tisdev\workspace\Nablarch_tool_test\java\nablarch\tool\sanitizingcheck\all.jsp</path>
+    <errors>
+      <error>&lt;%-- (at line=2 column=9) is forbidden.</error>
+      <error>&lt;!-- (at line=3 column=9) is forbidden.</error>
+      <error>&lt;%! (at line=6 column=5) is forbidden.</error>
+      <error>&lt;jsp:declaration (at line=7 column=5) is forbidden.</error>
+      <error>&lt;%= (at line=12 column=5) is forbidden.</error>
+      <error>&lt;jsp:expression (at line=13 column=5) is forbidden.</error>
+      <error>&lt;% (at line=19 column=5) is forbidden.</error>
+      <error>&lt;jsp:scriptlet (at line=23 column=5) is forbidden.</error>
+      <error>&lt;a:tag (at line=28 column=5) is forbidden.</error>
+      <error>&lt;a:tag (at line=29 column=5) is forbidden.</error>
+      <error>&lt;a:tag (at line=30 column=5) is forbidden.</error>
+      <error>${ (at line=31 column=5) is forbidden.</error>
+      <error>${ (at line=32 column=5) is forbidden.</error>
+      <error>${ (at line=33 column=5) is forbidden.</error>
+      <error>${ (at line=34 column=5) is forbidden.</error>
+      <error>${ (at line=35 column=5) is forbidden.</error>
+      <error>${ (at line=36 column=5) is forbidden.</error>
+      <error>${ (at line=37 column=5) is forbidden.</error>
+      <error>${ (at line=38 column=5) is forbidden.</error>
+      <error>${ (at line=39 column=5) is forbidden.</error>
+      <error>${ (at line=40 column=5) is forbidden.</error>
+      <error>${ (at line=41 column=5) is forbidden.</error>
+      <error>${ (at line=42 column=5) is forbidden.</error>
+      <error>${ (at line=43 column=5) is forbidden.</error>
+      <error>${ (at line=44 column=5) is forbidden.</error>
+      <error>${ (at line=45 column=5) is forbidden.</error>
+      <error>${ (at line=46 column=5) is forbidden.</error>
+      <error>${ (at line=47 column=5) is forbidden.</error>
+      <error>&lt;%@ attribute (at line=52 column=5) is forbidden.</error>
+      <error>&lt;jsp:directive.attribute (at line=53 column=5) is forbidden.</error>
+      <error>&lt;%@ include (at line=57 column=5) is forbidden.</error>
+      <error>&lt;jsp:directive.include (at line=58 column=5) is forbidden.</error>
+      <error>&lt;%@ page (at line=63 column=5) is forbidden.</error>
+      <error>&lt;jsp:directive.page (at line=64 column=5) is forbidden.</error>
+      <error>&lt;%@ tag (at line=69 column=5) is forbidden.</error>
+      <error>&lt;jsp:directive.tag (at line=70 column=5) is forbidden.</error>
+      <error>&lt;%@ taglib (at line=75 column=5) is forbidden.</error>
+      <error>&lt;%@ variable (at line=80 column=5) is forbidden.</error>
+      <error>&lt;jsp:directive.variable (at line=81 column=5) is forbidden.</error>
+      <error>&lt;jsp:attribute (at line=86 column=5) is forbidden.</error>
+      <error>&lt;jsp:attribute (at line=93 column=5) is forbidden.</error>
+      <error>&lt;jsp:body (at line=94 column=5) is forbidden.</error>
+      <error>&lt;jsp:element (at line=99 column=5) is forbidden.</error>
+      <error>&lt;jsp:element (at line=100 column=5) is forbidden.</error>
+      <error>&lt;jsp:element (at line=101 column=5) is forbidden.</error>
+      <error>&lt;jsp:element (at line=105 column=5) is forbidden.</error>
+      <error>&lt;jsp:element (at line=109 column=5) is forbidden.</error>
+      <error>&lt;jsp:doBody (at line=118 column=5) is forbidden.</error>
+      <error>&lt;jsp:doBody (at line=119 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=123 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=124 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=125 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=127 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=132 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=137 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=144 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=146 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=151 column=5) is forbidden.</error>
+      <error>&lt;jsp:forward (at line=156 column=5) is forbidden.</error>
+      <error>&lt;jsp:getProperty (at line=163 column=1) is forbidden.</error>
+      <error>&lt;jsp:include (at line=167 column=5) is forbidden.</error>
+      <error>&lt;jsp:include (at line=168 column=5) is forbidden.</error>
+      <error>&lt;jsp:include (at line=169 column=5) is forbidden.</error>
+      <error>&lt;jsp:include (at line=171 column=5) is forbidden.</error>
+      <error>&lt;jsp:include (at line=176 column=5) is forbidden.</error>
+      <error>&lt;jsp:include (at line=181 column=5) is forbidden.</error>
+      <error>&lt;jsp:include (at line=188 column=5) is forbidden.</error>
+      <error>&lt;jsp:include (at line=190 column=5) is forbidden.</error>
+      <error>&lt;jsp:include (at line=195 column=5) is forbidden.</error>
+      <error>&lt;jsp:include (at line=200 column=5) is forbidden.</error>
+      <error>&lt;jsp:invoke (at line=207 column=5) is forbidden.</error>
+      <error>&lt;jsp:invoke (at line=208 column=5) is forbidden.</error>
+      <error>&lt;jsp:output (at line=211 column=5) is forbidden.</error>
+      <error>&lt;jsp:plugin (at line=215 column=5) is forbidden.</error>
+      <error>&lt;jsp:plugin (at line=224 column=5) is forbidden.</error>
+      <error>&lt;jsp:plugin (at line=233 column=5) is forbidden.</error>
+      <error>&lt;jsp:plugin (at line=243 column=5) is forbidden.</error>
+      <error>&lt;jsp:plugin (at line=252 column=5) is forbidden.</error>
+      <error>&lt;jsp:plugin (at line=261 column=5) is forbidden.</error>
+      <error>&lt;jsp:root (at line=271 column=5) is forbidden.</error>
+      <error>&lt;jsp:setProperty (at line=277 column=5) is forbidden.</error>
+      <error>&lt;jsp:setProperty (at line=278 column=5) is forbidden.</error>
+      <error>&lt;jsp:setProperty (at line=279 column=5) is forbidden.</error>
+      <error>&lt;jsp:setProperty (at line=282 column=5) is forbidden.</error>
+      <error>&lt;jsp:text (at line=286 column=5) is forbidden.</error>
+      <error>&lt;jsp:useBean (at line=292 column=5) is forbidden.</error>
+      <error>&lt;jsp:useBean (at line=293 column=5) is forbidden.</error>
+      <error>&lt;jsp:useBean (at line=294 column=5) is forbidden.</error>
+      <error>&lt;jsp:useBean (at line=295 column=5) is forbidden.</error>
+      <error>&lt;jsp:useBean (at line=298 column=5) is forbidden.</error>
+      <error>&lt;jsp:useBean (at line=301 column=5) is forbidden.</error>
+      <error>&lt;jsp:useBean (at line=305 column=5) is forbidden.</error>
+      <error>&lt;jsp:useBean (at line=306 column=5) is forbidden.</error>
+    </errors>
+  </item>
+</result>

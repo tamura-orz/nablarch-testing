@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="マスタデータ投入" basedir="" default="マスタデータ投入">
+
+    <!-- プロパティファイル名 -->
+    <property file="master_data.properties"/>
+
+
+    <target name="マスタデータ投入"
+            depends="データ投入(main),データ投入(test)"
+            description="ユーザ作成からデータ投入までを実行する。"
+            />
+
+
+    <path id="masterdata.libs">
+        <fileset dir="${project.root}/${project.test.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${project.root}/${project.main.lib}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="test.resources">
+        <dirset dir="${project.root}">
+            <include name="${project.test.resources}"/>
+        </dirset>
+    </path>
+    <path id="main.resources">
+        <dirset dir="${project.root}">
+            <include name="${protect.main.resources}"/>
+        </dirset>
+    </path>
+    <target name="データ投入(main)">
+        <java classname="nablarch.test.core.db.MasterDataSetUpper" fork="true">
+            <arg value="${masterdata.config}"/>
+            <arg value="${masterdata.file}"/>
+            <arg value="${masterdata.main.backup-schema}"/>
+            <jvmarg value="-Dnablarch.log.filePath=file:${masterdata.log.settings}"/>
+            <classpath refid="main.resources"/>
+            <classpath refid="test.resources"/>
+            <classpath refid="masterdata.libs"/>
+        </java>
+    </target>
+    <target name="データ投入(test)">
+        <java classname="nablarch.test.core.db.MasterDataSetUpper" fork="true">
+            <arg value="${masterdata.config}"/>
+            <arg value="${masterdata.file}"/>
+            <arg value="${masterdata.test.backup-schema}"/>
+        	<jvmarg value="-Dnablarch.log.filePath=file:${masterdata.log.settings}"/>
+            <classpath refid="test.resources"/>
+            <classpath refid="main.resources"/>
+            <classpath refid="masterdata.libs"/>
+        </java>
+    </target>
+</project>

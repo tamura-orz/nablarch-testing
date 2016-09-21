@@ -1,0 +1,8 @@
+file-type:        "Fixed"
+text-encoding:    "sjis"
+record-length:    15
+
+
+[Header]
+1   requestId   X(10)      # リクエストID
+11 ?reserved    X(5)       # 予備領域

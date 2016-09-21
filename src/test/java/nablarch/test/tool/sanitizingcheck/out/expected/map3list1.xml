@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<result>
+  <item>
+    <path>testFile1</path>
+    <errors>
+      <error>message1</error>
+    </errors>
+  </item>
+  <item>
+    <path>testFile2</path>
+    <errors>
+      <error>message2</error>
+    </errors>
+  </item>
+  <item>
+    <path>testFile3</path>
+    <errors>
+      <error>message3</error>
+    </errors>
+  </item>
+</result>

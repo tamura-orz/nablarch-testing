@@ -1,0 +1,8 @@
+file-type:        "Fixed"
+text-encoding:    "ms932"
+record-length:    100
+
+
+[name]
+1   name   N(100)      # 名前
+

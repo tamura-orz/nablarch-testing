@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+
+<html         lang="test" dir="ltr" version="-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<head         lang="test" dir="ltr" profile="test">
+</head>
+
+<body>
+
+    <b>以下はダブルクォート</b>
+    <form action="test">
+    
+        <button value="test;/?:@&=+$,-_.!~*'()%
+        これは改行テスト
+        1324">test</button>
+    
+        <button value="test;/?:@&=+$,-_.!~*'()%	これはタブテスト	1324">test</button>
+        <button value="test;/?:@&=+$,-_.!~*'()% これは空白テスト  　1324">test</button>
+        <button value="test;/?:@&=+$,-_.!~*'()%'これはクォーテーションを含む文字列'1234">test</button>
+        <button value="test;/?:@&=+$,-_.!~*'()%
+        '
+        これはクォーテーションを含む文字列
+        '
+        1234">test</button>
+        <button value="test;/?:@&=+$,-_.!~*'()%	'	これはクォーテーションを含む文字列	'	1234">test</button>
+        <button value="test;/?:@&=+$,-_.!~*'()% ' これはクォーテーション  '  を含む文字列　'　1234">test</button>
+        <button value=
+        "test;/?:@&=+$,-_.!~*'()%1234"
+        >test</button>
+        <button value=	"test;/?:@&=+$,-_.!~*'()%1234"	>test</button>
+        <button value= "test;/?:@&=+$,-_.!~*'()%1234"  >test</button>
+    </form>
+
+    <b>以下はシングルクォート</b>
+    <form action="test">
+    
+        <button value='test
+        これは改行テスト
+        1324'>test</button>
+    
+        <button value='test;/?:@&=+$,-_.!~*()%	これはタブテスト	1324'>test</button>
+        <button value='test;/?:@&=+$,-_.!~*()% これは空白テスト  　1324'>test</button>
+        <button value='test;/?:@&=+$,-_.!~*()%"これはクォーテーションを含む文字列"1234'>test</button>
+        <button value='test;/?:@&=+$,-_.!~*()%
+        "
+        これはクォーテーションを含む文字列
+        "
+        1234'>test</button>
+        <button value='test;/?:@&=+$,-_.!~*()%	"	これはクォーテーションを含む文字列	"	1234'>test</button>
+        <button value='test;/?:@&=+$,-_.!~*()% " これはクォーテーション  "  を含む文字列　"　1234'>test</button>
+        <button value=
+        'test;/?:@&=+$,-_.!~*()%'
+        >test</button>
+        <button value=	'test;/?:@&=+$,-_.!~*()%'	>test</button>
+        <button value= 'test;/?:@&=+$,-_.!~*()%'  >test</button>
+    </form>
+
+    <b>以下はboolean属性に関するテスト</b>
+    <input disabled />
+    <input disabled="" />
+    <input disabled="disabled" />
+
+</body>
+
+</html>

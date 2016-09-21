@@ -1,0 +1,9 @@
+file-type:        "Fixed"
+text-encoding:    "ms932"
+record-length:    70
+
+[data]
+1     title     X(20)
+21    publisher X(20)
+41    authors   N(20)
+61    count     Z(10)
