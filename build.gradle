@@ -54,7 +54,7 @@ dependencyManagement {
   imports {
     mavenBom 'com.nablarch.profile:nablarch-bom:5u6'
   }
-  applyMavenExclusions false
+  // applyMavenExclusions false
 }
 
 sourceSets.test.compileClasspath = configurations.mock + sourceSets.test.compileClasspath
