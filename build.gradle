@@ -37,7 +37,7 @@ buildscript {
   }
 }
 
-apply {
+r {
   plugin 'com.nablarch.dev.nablarch-build'
   plugin 'com.nablarch.dev.nablarch-sonarqube'
   plugin 'com.nablarch.dev.nablarch-maven-deploy'
@@ -54,7 +54,7 @@ dependencyManagement {
   imports {
     mavenBom 'com.nablarch.profile:nablarch-bom:5u6'
   }
-  // applyMavenExclusions false
+  applyMavenExclusions true
 }
 
 sourceSets.test.compileClasspath = configurations.mock + sourceSets.test.compileClasspath
