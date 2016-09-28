@@ -37,7 +37,7 @@ buildscript {
   }
 }
 
-r {
+{
   plugin 'com.nablarch.dev.nablarch-build'
   plugin 'com.nablarch.dev.nablarch-sonarqube'
   plugin 'com.nablarch.dev.nablarch-maven-deploy'
