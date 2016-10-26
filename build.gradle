@@ -52,7 +52,7 @@ configurations {
 
 dependencyManagement {
   imports {
-    mavenBom 'com.nablarch.profile:nablarch-bom:5u6'
+    mavenBom 'com.nablarch.profile:nablarch-bom:5u7'
   }
   applyMavenExclusions false
 }
@@ -70,7 +70,7 @@ dependencies {
   compile 'com.nablarch.framework:nablarch-fw-web-extension'
 
   mock('org.jmockit:jmockit:1.13')
-  provided 'com.nablarch.profile:nablarch-all-in-one:5u6'
+  provided 'com.nablarch.profile:nablarch-all-in-one:5u7'
   testCompile 'com.nablarch.framework:nablarch-backward-compatibility:1.0.1'
   // messaging
   compile 'org.apache.activemq:activemq-all:5.4.2'
