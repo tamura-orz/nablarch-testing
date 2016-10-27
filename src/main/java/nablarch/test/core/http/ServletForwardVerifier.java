@@ -1,5 +1,10 @@
 package nablarch.test.core.http;
 
+import static nablarch.test.Assertion.fail;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import nablarch.core.util.StringUtil;
 import nablarch.fw.ExecutionContext;
 import nablarch.fw.Handler;
@@ -9,11 +14,6 @@ import nablarch.fw.web.HttpResponse;
 import nablarch.fw.web.ResourceLocator;
 import nablarch.fw.web.handler.HttpResponseHandler;
 import nablarch.test.core.util.ListWrapper;
-
-import java.util.List;
-
-import static nablarch.test.Assertion.fail;
-import static org.junit.Assert.assertEquals;
 
 /**
  * フォワード先を検証するハンドラ。<br/>
@@ -99,8 +99,19 @@ class ServletForwardVerifier implements HttpRequestHandler {
      * @param expectedUri 期待するフォワード先URI
      */
     private void assertForwardUriEquals(String msg, String expectedUri) {
-        String actualUri = (contentPath == null || "file".equals(contentPath.getScheme()))
-                ? "" : contentPath.getPath();
+        final String actualUri;
+        if (contentPath == null) {
+            actualUri = "";
+        } else {
+            final String scheme = contentPath.getScheme();
+            if (scheme.equals("http") || scheme.equals("https")) {
+                actualUri = contentPath.toString();
+            } else if (scheme.equals("file")) {
+                actualUri = "";
+            } else {
+                actualUri = contentPath.getPath();
+            }
+        }
         assertEquals(msg + " unexpected forward URI.", expectedUri, actualUri);
     }
 

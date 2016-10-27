@@ -67,7 +67,7 @@ public class ServletForwardVerifierTest {
             }
         })).handleNext(new MockHttpRequest());
 
-        target.verifyForward("/path/to/external_page.html");
+        target.verifyForward("http://www.example.com/path/to/external_page.html");
         
         // https://
         new ExecutionContext().addHandlers(Arrays.asList(target, new HttpRequestHandler() {
@@ -76,7 +76,7 @@ public class ServletForwardVerifierTest {
             }
         })).handleNext(new MockHttpRequest());
 
-        target.verifyForward("/path/to/secure_page.html");
+        target.verifyForward("https://www.example.com/path/to/secure_page.html");
         
         
         // 内部フォーワードは最終的なレスポンスには現れないのでエラー        
