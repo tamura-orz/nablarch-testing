@@ -101,7 +101,7 @@ public class TableDataTest {
         assertThat("NULL_COL", table.getValue(0, "null_col"), nullValue());
         assertThat("CLOB_COL", (String) table.getValue(0, "clob_col"), is("CLOBです0"));
         assertThat("BLOB_COL", (String) table.getValue(0, "blob_col"), is(BinaryUtil.convertToHexString(new byte[100])));
-        assertThat("BOOL_COL", (Integer) table.getValue(0, "bool_col"), is(1));
+        assertThat("BOOL_COL", (BigDecimal) table.getValue(0, "bool_col"), is(new BigDecimal(1)));
     }
 
     @Test
@@ -126,14 +126,14 @@ public class TableDataTest {
         assertThat("1件目:VARCHAR2_COL", (String) table.getValue(0, "varchar2_col"), is("かきくけこ"));
         assertThat("1件目:CLOB_COL", (String) table.getValue(0, "clob_col"), is("CLOBです2"));
         assertThat("1件目:BLOB_COL", (String) table.getValue(0, "blob_col"), is(BinaryUtil.convertToHexString("BLOBです2".getBytes())));
-        assertThat("1件目:BOOL_COL", (Integer) table.getValue(0, "bool_col"), is(1));
+        assertThat("1件目:BOOL_COL", (BigDecimal) table.getValue(0, "bool_col"), is(new BigDecimal(1)));
 
         assertThat("2件目:PK_COL1", (String) table.getValue(1, "pk_col1"), is("00002"));
         assertThat("2件目:PK_COL2", ((Number) table.getValue(1, "pk_col2")).intValue(), is(3));
         assertThat("2件目:VARCHAR2_COL", (String) table.getValue(1, "varchar2_col"), is("さしすせそ"));
         assertThat("2件目:CLOB_COL", (String) table.getValue(1, "clob_col"), is("CLOBです1"));
         assertThat("2件目:BLOB_COL", (String) table.getValue(1, "blob_col"), is(BinaryUtil.convertToHexString("BLOBです1".getBytes())));
-        assertThat("2件目:BOOL_COL", (Integer) table.getValue(1, "bool_col"), is(1));
+        assertThat("2件目:BOOL_COL", (BigDecimal) table.getValue(1, "bool_col"), is(new BigDecimal(1)));
     }
 
     /**

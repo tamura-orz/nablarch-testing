@@ -29,6 +29,7 @@
               <entry key="replacement" value="nablarch.core.dataformat.convertor.value.CharacterReplacer"/>
           </map>
       </property>
+      <property name="convertEmptyToNull" value="false" />
   </component>
   <component name="variableLengthConvertorSetting"
       class="nablarch.core.dataformat.convertor.VariableLengthConvertorSetting">
@@ -46,5 +47,6 @@
               <entry key="replacement" value="nablarch.core.dataformat.convertor.value.CharacterReplacer"/>
           </map>
       </property>
+      <property name="convertEmptyToNull" value="false" />
   </component>
 </component-configuration>
