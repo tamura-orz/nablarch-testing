@@ -7,4 +7,7 @@
   <!-- テスト用設定値 -->
   <config-file file="classpath:nablarch/test/core/messaging/reader.config"/>
 
+  <!-- テスト用コンバータ設定ファイル -->
+  <import file="classpath:convertorSetting.xml"/>
+
 </component-configuration>

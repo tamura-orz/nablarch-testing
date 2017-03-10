@@ -32,6 +32,8 @@ public class MessageParserTest {
     	
     	// 条件設定
         SystemRepository.clear();
+        SystemRepository.load(new DiContainer(new XmlComponentDefinitionLoader("convertorSetting.xml")));
+
         MessageParser target = new MessageParser(new PoiXlsReader(),
                 Collections.<TestDataInterpreter>emptyList(),
                 DataType.MESSAGE);
