@@ -1,25 +1,41 @@
 package nablarch.test.core.batch;
 
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
-import static org.junit.matchers.JUnitMatchers.containsString;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import nablarch.test.core.db.HogeTable;
+import nablarch.test.support.SystemRepositoryResource;
+import nablarch.test.support.db.helper.DatabaseTestRunner;
+import nablarch.test.support.db.helper.VariousDbTestHelper;
+
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-
-import test.support.SystemRepositoryResource;
+import org.junit.runner.RunWith;
 
 /**
  * @author T.Kawasaki
  */
+@RunWith(DatabaseTestRunner.class)
 public class BatchRequestTestSupportTest {
-	
-	@Rule
-	public SystemRepositoryResource repositoryResource = new SystemRepositoryResource("unit-test.xml");
+
+    @Rule
+    public SystemRepositoryResource repositoryResource = new SystemRepositoryResource("unit-test.xml");
 
     private BatchRequestTestSupport target = new BatchRequestTestSupport(getClass());
 
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        VariousDbTestHelper.createTable(HogeTable.class);
+        VariousDbTestHelper.createTable(DBtoDBBatchSampleTest.BatchSample.class);
+    }
 
     /** 引数がnullまたは空文字のときに例外が発生すること。 */
     @Test

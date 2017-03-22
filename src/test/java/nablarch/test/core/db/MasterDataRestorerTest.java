@@ -16,12 +16,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import test.support.SystemRepositoryResource;
-import test.support.db.helper.DatabaseTestRunner;
-import test.support.db.helper.VariousDbTestHelper;
-
 import nablarch.core.db.connection.AppDbConnection;
 import nablarch.test.event.TestEventDispatcher;
+import nablarch.test.support.SystemRepositoryResource;
+import nablarch.test.support.db.helper.DatabaseTestRunner;
+import nablarch.test.support.db.helper.VariousDbTestHelper;
 
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -66,6 +65,8 @@ public class MasterDataRestorerTest extends TestEventDispatcher {
         VariousDbTestHelper.createTable(DaughterSsdMaster.class);
         VariousDbTestHelper.createTable(Family.class);
         VariousDbTestHelper.createTable(FamilySsdMaster.class);
+        VariousDbTestHelper.createTable(Son.class);
+        VariousDbTestHelper.createTable(SonSsdMaster.class);
 
         Granpa granpa1 = new Granpa("1");
         Granpa granpa2 = new Granpa("2");

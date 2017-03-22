@@ -1,4 +1,4 @@
-nablarch.test.core.batch.DBtoDBBatchSampleTest$BATCH_SAMPLE
+nablarch.test.core.batch.DBtoDBBatchSampleTest$BatchSample
 nablarch.test.core.db.TestTable
 nablarch.test.core.db.BigDecimalTable
 nablarch.test.core.db.TableDataTest$InsNullTestTable
