@@ -42,6 +42,9 @@ public class MockMessagingClient implements MessageSenderClient {
     /** 応答電文のデータフォーマット定義ファイル名パターン  */
     private String responseMessageFormatFileNamePattern = "%s" + "_RECEIVE";
 
+    /** 文字セット */
+    private Charset charset = Charset.forName("UTF-8");
+
     @Override
     public SyncMessage sendSync(MessageSenderSettings settings,
             SyncMessage requestMessage) {
@@ -55,7 +58,7 @@ public class MockMessagingClient implements MessageSenderClient {
         if (bodyBytes == null) {
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.logInfo("response timeout: could not receive a reply to the message."
-                        + MessagingLogUtil.getSentMessageLog(getSendingMessage(requestMessage))
+                        + MessagingLogUtil.getHttpSentMessageLog(getSendingMessage(requestMessage),charset)
                         );
             }
             throw new HttpMessagingTimeoutException(String.format(
@@ -145,8 +148,8 @@ public class MockMessagingClient implements MessageSenderClient {
      */
     private void emitLog(InterSystemMessage<?> message) {
         String log = (message instanceof ReceivedMessage)
-                ? MessagingLogUtil.getReceivedMessageLog((ReceivedMessage) message)
-                : MessagingLogUtil.getSentMessageLog((SendingMessage) message);
+                ? MessagingLogUtil.getHttpReceivedMessageLog((ReceivedMessage) message, charset)
+                : MessagingLogUtil.getHttpSentMessageLog((SendingMessage) message, charset);
         LOGGER.logInfo(log);
     }
 
@@ -214,5 +217,13 @@ public class MockMessagingClient implements MessageSenderClient {
             charset = ((DataRecordFormatterSupport) formatter).getDefaultEncoding();
         }
         return charset;
+    }
+
+    /**
+     * 文字セット名から文字セットを設定する。
+     * @param charset 文字セット名
+     */
+    public void setCharset(String charset) {
+        this.charset = Charset.forName(charset);
     }
 }

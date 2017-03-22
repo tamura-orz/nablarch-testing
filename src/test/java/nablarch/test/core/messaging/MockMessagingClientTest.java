@@ -9,8 +9,13 @@ import static org.junit.Assert.fail;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import test.support.SystemRepositoryResource;
 
 import nablarch.core.dataformat.DataRecord;
 import nablarch.core.dataformat.FieldDefinition;
@@ -25,8 +30,11 @@ import nablarch.fw.messaging.SyncMessagingEventHook;
 import nablarch.fw.messaging.realtime.http.client.HttpMessagingClient;
 import nablarch.fw.messaging.realtime.http.exception.HttpMessagingTimeoutException;
 import nablarch.test.core.file.TestDataConverter;
+import nablarch.test.support.log.app.OnMemoryLogWriter;
 
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 
@@ -36,13 +44,21 @@ import org.junit.Test;
  */
 public class MockMessagingClientTest {
 
+    @Rule
+    public SystemRepositoryResource repositoryResource = new SystemRepositoryResource(
+            "nablarch/test/core/messaging/web/web-component-configuration.xml");
+
     /** 初期化を行う */
-    @BeforeClass
-    public static void loadRepository() {
-        XmlComponentDefinitionLoader loader = new XmlComponentDefinitionLoader("nablarch/test/core/messaging/web/web" +
-                                                                                       "-component-configuration.xml");
-        DiContainer container = new DiContainer(loader);
-        SystemRepository.load(container);
+    @Before
+    public void setUp() throws Exception {
+        OnMemoryLogWriter.clear();
+    }
+
+    /** 終了処理を行う。*/
+    @After
+    public void tearDown() throws Exception {
+        OnMemoryLogWriter.clear();
+        SystemRepository.clear();
     }
 
     /**
@@ -66,6 +82,12 @@ public class MockMessagingClientTest {
         //文字化けせずに取得できていることを確認
         assertThat((String)responseDataRecord.get("userInfoId"), is("あ"));
         assertTrue(responseMessage.getRequestId().contains("RM11AC0202"));
+        // ログが文字化けしていないこと。
+        OnMemoryLogWriter.assertLogContains("writer.memlog",
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><dataKbn>1</dataKbn>"
+                        + "<loginId>user01</loginId><kanjiName>ナブラ太郎</kanjiName><kanaName>ナブラタロウ</kanaName>"
+                        + "<mailAddress>a@a.com</mailAddress><extensionNumberBuilding>2</extensionNumberBuilding>"
+                        + "<extensionNumberPersonal>3</extensionNumberPersonal></request>");
     }
 
     
@@ -94,14 +116,24 @@ public class MockMessagingClientTest {
         dataRecord = new HashMap<String, Object>();
         dataRecord.put("dataKbn", "1");
         dataRecord.put("loginId", "user01");
-        dataRecord.put("kanjiName", "ナブラ太郎");
-        dataRecord.put("kanaName", "ナブラタロウ");
-        dataRecord.put("mailAddress", "a@a.com");
+        dataRecord.put("kanjiName", "ナブラ次郎");
+        dataRecord.put("kanaName", "ナブラジロウ");
+        dataRecord.put("mailAddress", "b@b.com");
         dataRecord.put("extensionNumberBuilding", "2");
         dataRecord.put("extensionNumberPersonal", "3");
         responseMessage = MessageSender.sendSync(new SyncMessage(requestId).addDataRecord(dataRecord));
         responseDataRecord = responseMessage.getDataRecord();
         assertThat((String)responseDataRecord.get("userInfoId"), is("00000000000000000113"));
+        // ログが文字化けしていないこと。
+        OnMemoryLogWriter.assertLogContains("writer.memlog",
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><dataKbn>1</dataKbn>"
+                        + "<loginId>user01</loginId><kanjiName>ナブラ太郎</kanjiName><kanaName>ナブラタロウ</kanaName>"
+                        + "<mailAddress>a@a.com</mailAddress><extensionNumberBuilding>2</extensionNumberBuilding>"
+                        + "<extensionNumberPersonal>3</extensionNumberPersonal></request>",
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><dataKbn>1</dataKbn>"
+                        + "<loginId>user01</loginId><kanjiName>ナブラ次郎</kanjiName><kanaName>ナブラジロウ</kanaName>"
+                        + "<mailAddress>b@b.com</mailAddress><extensionNumberBuilding>2</extensionNumberBuilding>"
+                        + "<extensionNumberPersonal>3</extensionNumberPersonal></request>");
     }
 
     /**
@@ -147,8 +179,7 @@ public class MockMessagingClientTest {
             assertTrue(e.getMessage().contains("message was not found. message must be setting. " +
                     "data type=[RESPONSE_BODY_MESSAGES], request id=[RM11AC0292],"));
             assertTrue(e.getMessage().contains("resource name=[RM11AC0292/message]."));
-            
-        }     
+        }
     }
     
     /**
@@ -194,6 +225,20 @@ public class MockMessagingClientTest {
         }catch(Exception e){
             assertThat(e, is(instanceOf(HttpMessagingTimeoutException.class)));
         }
+        // 通常ログとエラーログの2回出力されていること。
+        assertLogWithCount(createMessagePattern(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><dataKbn>1</dataKbn>"
+                        + "<loginId>user01</loginId><kanjiName>ナブラ太郎</kanjiName><kanaName>ナブラタロウ</kanaName>"
+                        + "<mailAddress>a@a.com</mailAddress><extensionNumberBuilding>2</extensionNumberBuilding>"
+                        + "<extensionNumberPersonal>3</extensionNumberPersonal></request>"),
+                2);
+        //エラーログが文字化けしていないこと。
+        assertLogWithCount(createMessagePattern("response timeout: could not receive a reply to the message.",
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><dataKbn>1</dataKbn>"
+                        + "<loginId>user01</loginId><kanjiName>ナブラ太郎</kanjiName><kanaName>ナブラタロウ</kanaName>"
+                        + "<mailAddress>a@a.com</mailAddress><extensionNumberBuilding>2</extensionNumberBuilding>"
+                        + "<extensionNumberPersonal>3</extensionNumberPersonal></request>"),
+                1);
     }
 
 
@@ -202,6 +247,15 @@ public class MockMessagingClientTest {
      */
     @Test
     public void testNormalSJIS() {
+
+        //Shift-JISで設定を読み込む。
+        SystemRepository.clear();
+        XmlComponentDefinitionLoader loader = new XmlComponentDefinitionLoader("nablarch/test/core/messaging/web/web" +
+                "-component-configuration-sjis.xml");
+        DiContainer container = new DiContainer(loader);
+        SystemRepository.load(container);
+
+
         Map<String, Object> dataRecord = new HashMap<String, Object>();
         SyncMessage responseMessage = null;
         
@@ -218,6 +272,51 @@ public class MockMessagingClientTest {
         //文字化けせずに取得できていることを確認
         assertThat((String)responseDataRecord.get("userInfoId"), is("あ"));
         assertTrue(responseMessage.getRequestId().contains("RM11AC0295"));
+        // ログがShift-JISでも文字化けしていないこと。
+        OnMemoryLogWriter.assertLogContains("writer.memlog",
+                "<?xml version=\"1.0\" encoding=\"Shift_JIS\"?><request><dataKbn>1</dataKbn>"
+                        + "<loginId>user01</loginId><kanjiName>ナブラ太郎</kanjiName><kanaName>ナブラタロウ</kanaName>"
+                        + "<mailAddress>a@a.com</mailAddress><extensionNumberBuilding>2</extensionNumberBuilding>"
+                        + "<extensionNumberPersonal>3</extensionNumberPersonal></request>");
+   }
+
+    /**
+     * 正常系のテスト(Charset指定なし)。
+     */
+    @Test
+    public void testNormalNoCharset() throws Exception {
+
+        //Charset指定なしで設定を読み込む。
+        SystemRepository.clear();
+        XmlComponentDefinitionLoader loader = new XmlComponentDefinitionLoader("nablarch/test/core/messaging/web/web" +
+                "-component-configuration-nocharset.xml");
+        DiContainer container = new DiContainer(loader);
+        SystemRepository.load(container);
+
+
+        Map<String, Object> dataRecord = new HashMap<String, Object>();
+        SyncMessage responseMessage = null;
+
+        dataRecord.put("dataKbn", "1");
+        dataRecord.put("loginId", "user01");
+        dataRecord.put("kanjiName", "ナブラ太郎");
+        dataRecord.put("kanaName", "ナブラタロウ");
+        dataRecord.put("mailAddress", "a@a.com");
+        dataRecord.put("extensionNumberBuilding", "2");
+        dataRecord.put("extensionNumberPersonal", "3");
+
+        responseMessage = MessageSender.sendSync(new SyncMessage("RM11AC0298").addDataRecord(dataRecord));
+        Map<String, Object> responseDataRecord = responseMessage.getDataRecord();
+        //文字化けせずに取得できていることを確認
+        assertThat((String)responseDataRecord.get("userInfoId"), is("あ"));
+        assertTrue(responseMessage.getRequestId().contains("RM11AC0298"));
+        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><request><dataKbn>1</dataKbn>"
+                + "<loginId>user01</loginId><kanjiName>ナブラ太郎</kanjiName><kanaName>ナブラタロウ</kanaName>"
+                + "<mailAddress>a@a.com</mailAddress><extensionNumberBuilding>2</extensionNumberBuilding>"
+                + "<extensionNumberPersonal>3</extensionNumberPersonal></request>";
+        //Charset指定なしのログがデフォルトでエンコードされることを確認
+        String body =  new String(expected.getBytes(Charset.forName("UTF-8")));
+        assertLogWithCount(createMessagePattern(body), 1);
     }
 
     /**
@@ -453,5 +552,42 @@ public class MockMessagingClientTest {
             //特に何もしない
             return currentData;
         }
+    }
+
+    /**
+     * 正規表現で指定したパターンが指定回数ログに出力されていることを確認する。
+     * @param messagePattern テストしたい正規表現のパターン
+     * @param expectedCount 期待する回数
+     */
+    public void assertLogWithCount(String messagePattern, int expectedCount)
+    {
+        List<String> log = OnMemoryLogWriter.getMessages("writer.memlog");
+        System.out.println("log = " + log);
+        String msg = messagePattern.replaceAll("\\r|\\n", "");
+        Pattern pattern = Pattern.compile(msg);
+        int logCount = 0;
+        for (String logMessage : log) {
+            String str = logMessage.replaceAll("\\r|\\n", "");
+            Matcher matcher = pattern.matcher(str);
+            if (matcher.matches()) {
+                logCount++;
+            }
+        }
+        assertThat( String.format("ログが指定回数だけ出力されていること messagePattern=[%s]",messagePattern), logCount, is(expectedCount));
+    }
+
+    /**
+     * 引数の配列を順番通りに含む正規表現を生成する。
+     * @param args 含めたい文字列の配列
+     * @return 引数すべてを含む正規表現
+     */
+    public String createMessagePattern(final String... args) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(".*");
+        for (String arg: args) {
+            sb.append(Pattern.quote(arg));
+            sb.append(".*");
+        }
+        return sb.toString();
     }
 }
