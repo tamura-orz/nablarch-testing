@@ -12,12 +12,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import test.support.SystemRepositoryResource;
-import test.support.db.helper.DatabaseTestRunner;
-import test.support.db.helper.VariousDbTestHelper;
-
 import nablarch.test.core.db.HogeTable;
 import nablarch.test.core.db.HogeTableSsdMaster;
+import nablarch.test.support.SystemRepositoryResource;
+import nablarch.test.support.db.helper.DatabaseTestRunner;
+import nablarch.test.support.db.helper.VariousDbTestHelper;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -67,8 +66,6 @@ public class DBtoDBBatchSampleTest extends BatchRequestTestSupport {
 
         public BatchSample() {
         }
-
-        ;
 
         public BatchSample(String id, Long counter, String message,
                 Timestamp updateDate) {

@@ -1,6 +1,6 @@
 package nablarch.test.core.messaging;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -15,8 +15,6 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import test.support.SystemRepositoryResource;
-
 import nablarch.core.dataformat.DataRecord;
 import nablarch.core.dataformat.FieldDefinition;
 import nablarch.core.dataformat.LayoutDefinition;
@@ -30,6 +28,7 @@ import nablarch.fw.messaging.SyncMessagingEventHook;
 import nablarch.fw.messaging.realtime.http.client.HttpMessagingClient;
 import nablarch.fw.messaging.realtime.http.exception.HttpMessagingTimeoutException;
 import nablarch.test.core.file.TestDataConverter;
+import nablarch.test.support.SystemRepositoryResource;
 import nablarch.test.support.log.app.OnMemoryLogWriter;
 
 import org.junit.After;
