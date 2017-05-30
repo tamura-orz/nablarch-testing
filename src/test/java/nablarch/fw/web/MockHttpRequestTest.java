@@ -2,7 +2,6 @@ package nablarch.fw.web;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.collection.IsArrayContainingInOrder.arrayContaining;
 import static org.junit.Assert.assertThat;
 
 import java.io.BufferedWriter;
@@ -86,10 +85,13 @@ public class MockHttpRequestTest {
         Assert.assertEquals("val2", req.getParam("key2")[0]);
 
         req.setParam("key1", "value1");
-        assertThat(req.getParam("key1"), arrayContaining("value1"));
+        assertThat(req.getParam("key1").length, is(1));
+        assertThat(req.getParam("key1")[0], is("value1"));
 
         req.setParam("key3", "v1", "v2");
-        assertThat(req.getParam("key3"), arrayContaining("v1", "v2"));
+        assertThat(req.getParam("key3").length, is(2));
+        assertThat(req.getParam("key3")[0], is("v1"));
+        assertThat(req.getParam("key3")[1], is("v2"));
     }
 
 

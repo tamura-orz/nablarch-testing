@@ -1,7 +1,6 @@
 package nablarch.test.core.db;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertEquals;
@@ -169,7 +168,7 @@ public class TableDataTest {
         assertThat(result.get(0).pkCol2, is(2L));
         assertThat("文字列項目の初期値は、ブランク", result.get(0).varchar2Col, is(" "));
         assertThat("数値項目の初期値は、0", result.get(0).numberCol, is(0L));
-        assertThat("数値項目の初期値は、0", result.get(0).numberCol2, comparesEqualTo(new BigDecimal("0.000")));
+        assertThat("数値項目の初期値は、0", result.get(0).numberCol2.compareTo(new BigDecimal("0.000")), is(0));
         assertThat("日付項目の初期値はepoc", result.get(0).timestampCol.getTime(), is(0L));
         assertThat("Clob型項目の初期値は、ブランク", new String(result.get(0).clobCol), equalToIgnoringWhiteSpace(""));
         assertThat("Blob型項目の初期値は、byte[10]", result.get(0).blobCol.length, is(10));
@@ -408,7 +407,7 @@ public class TableDataTest {
             assertThat("1件登録されていること", result.size(), is(1));
             InsNullTestTable table = result.get(0);
             assertThat(table.pkCol, is("00001"));
-            assertThat("指数表記のデータでも正しく登録されること", table.nullableNumber, comparesEqualTo(new BigDecimal("0.1")));
+            assertThat("指数表記のデータでも正しく登録されること", table.nullableNumber.compareTo(new BigDecimal("0.1")), is(0));
         } finally {
             VariousDbTestHelper.delete(InsNullTestTable.class);
         }

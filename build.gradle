@@ -91,13 +91,15 @@ dependencies {
   runtime 'org.mortbay.jetty:jsp-2.1-glassfish:2.1.v20100127'
   runtime 'org.mortbay.jetty:jsp-api-2.1-glassfish:2.1.v20100127'
 
-  testCompile 'org.hamcrest:hamcrest-all:1.3'
+  testCompile 'org.hamcrest:hamcrest-all:1.1'
 
   // JPA
   testCompile (group: 'org.eclipse.persistence', name: 'eclipselink', version: '2.5.1')
 
   // test support
-  testCompile 'com.nablarch.dev:nablarch-test-support:0.0.5'
+  testCompile ('com.nablarch.dev:nablarch-test-support:0.0.8') {
+    exclude module: 'junit'
+  }
   // HereIs
   testCompile (group: 'com.nablarch.tool', name: 'nablarch-toolbox', version: '1.0.2')
   testRuntime files("${projectDir}/src/test/java/")

@@ -2,10 +2,9 @@ package nablarch.test;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.Matchers.arrayContaining;
-import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.hamcrest.Matchers.hasItemInArray;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -97,16 +96,15 @@ public class TestSupportTest {
         TableData actual1 = actualList.get(0);
         assertThat(actual1.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
 
-        assertThat(actual1.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
-
-        assertThat(actual1.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual1.getPrimaryKeys().length, is(2));
+        assertThat(actual1.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual1.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
+        assertThat(actual1.getColumnNames().length, is(5));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
 
         // 1行目
         assertThat(actual1.getValue(0, "PK_COL1")
@@ -133,16 +131,16 @@ public class TestSupportTest {
 
         TableData actual2 = actualList.get(1);
         assertThat(actual1.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
-        assertThat(actual2.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getPrimaryKeys().length, is(2));
+        assertThat(actual2.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual2.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
 
-        assertThat(actual2.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual2.getColumnNames().length, is(5));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
 
         // 1行目
         assertThat(actual2.getValue(0, "PK_COL1")
@@ -179,16 +177,16 @@ public class TestSupportTest {
 
         TableData actual1 = case01.get(0);
         assertThat(actual1.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
-        assertThat(actual1.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
+        assertThat(actual1.getPrimaryKeys().length, is(2));
+        assertThat(actual1.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual1.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
 
-        assertThat(actual1.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual1.getColumnNames().length, is(5));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
 
         // 1行目
         assertThat(actual1.getValue(0, "PK_COL1")
@@ -219,16 +217,16 @@ public class TestSupportTest {
         TableData actual2 = case02.get(0);
         assertThat(actual2.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
 
-        assertThat(actual2.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getPrimaryKeys().length, is(2));
+        assertThat(actual2.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual2.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
 
-        assertThat(actual2.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual2.getColumnNames().length, is(5));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
 
         assertThat(actual2.getValue(0, "PK_COL1")
                 .toString(), is("0000000003"));
@@ -245,16 +243,16 @@ public class TestSupportTest {
         actual2 = case02.get(1);
         assertThat(actual2.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
 
-        assertThat(actual2.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getPrimaryKeys().length, is(2));
+        assertThat(actual2.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual2.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
 
-        assertThat(actual2.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual2.getColumnNames().length, is(5));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
 
         assertThat(actual2.getValue(0, "PK_COL1")
                 .toString(), is("0000000004"));
@@ -286,16 +284,16 @@ public class TestSupportTest {
 
         TableData actual1 = actualList.get(0);
         assertThat(actual1.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
-        assertThat(actual1.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
+        assertThat(actual1.getPrimaryKeys().length, is(2));
+        assertThat(actual1.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual1.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
 
-        assertThat(actual1.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual1.getColumnNames().length, is(5));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
 
         // 1行目
         assertThat(actual1.getValue(0, "PK_COL1")
@@ -322,16 +320,16 @@ public class TestSupportTest {
 
         TableData actual2 = actualList.get(1);
         assertThat(actual2.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
-        assertThat(actual2.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getPrimaryKeys().length, is(2));
+        assertThat(actual2.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual2.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
 
-        assertThat(actual2.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual2.getColumnNames().length, is(5));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
 
         // 1行目
         assertThat(actual2.getValue(0, "PK_COL1")
@@ -368,16 +366,16 @@ public class TestSupportTest {
 
         TableData actual1 = case01.get(0);
         assertThat(actual1.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
-        assertThat(actual1.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
+        assertThat(actual1.getPrimaryKeys().length, is(2));
+        assertThat(actual1.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual1.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
 
-        assertThat(actual1.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual1.getColumnNames().length, is(5));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual1.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
         // 1行目
         assertThat(actual1.getValue(0, "PK_COL1")
                 .toString(), is("0000000005"));
@@ -406,16 +404,16 @@ public class TestSupportTest {
         assertThat(case02.size(), is(2));
         TableData actual2 = case02.get(0);
         assertThat(actual2.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
-        assertThat(actual2.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getPrimaryKeys().length, is(2));
+        assertThat(actual2.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual2.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
 
-        assertThat(actual2.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual2.getColumnNames().length, is(5));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
 
         // １つめのテーブル
         assertThat(actual2.getValue(0, "PK_COL1")
@@ -432,15 +430,17 @@ public class TestSupportTest {
         // 2つめのテーブル
         actual2 = case02.get(1);
         assertThat(actual2.getTableName(), is("TEST_SUPPORT_TEST_TABLE"));
-        assertThat(actual2.getPrimaryKeys(), arrayContaining(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2")));
-        assertThat(actual2.getColumnNames(), arrayContainingInAnyOrder(
-                equalToIgnoringCase("PK_COL1"),
-                equalToIgnoringCase("PK_COL2"),
-                equalToIgnoringCase("VARCHAR2_COL"),
-                equalToIgnoringCase("NUMBER_COL"),
-                equalToIgnoringCase("NUMBER_COL2")));
+        assertThat(actual2.getPrimaryKeys().length, is(2));
+        assertThat(actual2.getPrimaryKeys()[0], equalToIgnoringCase("PK_COL1"));
+        assertThat(actual2.getPrimaryKeys()[1], equalToIgnoringCase("PK_COL2"));
+
+        assertThat(actual2.getColumnNames().length, is(5));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL1")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("PK_COL2")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("VARCHAR2_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL")));
+        assertThat(actual2.getColumnNames(), hasItemInArray(equalToIgnoringCase("NUMBER_COL2")));
+
         assertThat(actual2.getValue(0, "PK_COL1")
                 .toString(), is("0000000004"));
         assertThat(actual2.getValue(0, "PK_COL2")
