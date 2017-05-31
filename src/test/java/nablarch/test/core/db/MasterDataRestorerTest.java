@@ -23,6 +23,8 @@ import nablarch.test.support.db.helper.DatabaseTestRunner;
 import nablarch.test.support.db.helper.VariousDbTestHelper;
 
 import nablarch.test.support.log.app.OnMemoryLogWriter;
+
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -100,6 +102,11 @@ public class MasterDataRestorerTest extends TestEventDispatcher {
         FamilySsdMaster family1b = new FamilySsdMaster("7", father1b, daughter1b);
         FamilySsdMaster family2b = new FamilySsdMaster("8", father2b, daughter2b);
         VariousDbTestHelper.setUpTable(family1b, family2b);
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        MasterDataRestorer.SqlLogWatchingFormatter.begin();
     }
 
     /** {@link MasterDataRestorer#afterTestMethod()}のテスト */
