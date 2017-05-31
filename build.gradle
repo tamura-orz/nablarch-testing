@@ -52,6 +52,12 @@ configurations {
 sourceSets.test.compileClasspath = configurations.mock + sourceSets.test.compileClasspath
 sourceSets.test.runtimeClasspath = configurations.mock + sourceSets.test.runtimeClasspath
 
+configurations.all {
+  resolutionStrategy {
+    force 'junit:junit:4.10'
+  }
+}
+
 dependencies {
   // nablarch
   // これらのモジュール内部のクラスを、コンポーネント定義ファイルにコンポーネントを定義せずに直接呼び出している。
