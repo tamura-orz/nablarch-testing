@@ -138,7 +138,6 @@ test {
           '-XX:-UseSplitVerifier'
   )
 
-  ignoreFailures = true
   
   exclude '**/*Db2*',
           // テストの実行順に依存しているため、Suiteを利用して実行順を制御している。
