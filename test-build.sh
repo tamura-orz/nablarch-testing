@@ -1,11 +1,10 @@
 #!/bin/bash
 #set -euo pipefail
 
-#export TZ=Asia/Tokyo
-#export DEVELOP_REPO_URL=http://ec2-52-199-35-248.ap-northeast-1.compute.amazonaws.com
-#export DEVELOP_REPO_NAME=repo
-
-source $HOME/build-script/travis-ci/nablarch_env
+export TZ=Asia/Tokyo
+TZ=Asia/Tokyo
+DEVELOP_REPO_URL=http://ec2-52-199-35-248.ap-northeast-1.compute.amazonaws.com
+DEVELOP_REPO_NAME=repo
 
 cd ${TRAVIS_BUILD_DIR}
 
@@ -22,11 +21,6 @@ if [ "${TRAVIS_PULL_REQUEST}" == "false" -a "${TRAVIS_BRANCH}" == "develop"  ]; 
 else
   echo "@@@@@@@@@@@ test @@@@@@@@@@@@"
   hostname
-  rm -rf /tmp/*.*
-
-  rm -f /tmp/hosts_127_0_0_1
-  echo "@@@@@@@@@@@@@@@@@@@@@@@"
-  rm -f /tmp/hosts_sans_127_0_0_1
 
 
   ls -la /tmp
