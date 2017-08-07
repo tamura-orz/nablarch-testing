@@ -17,7 +17,7 @@ if [ "${TRAVIS_PULL_REQUEST}" == "false" -a "${TRAVIS_BRANCH}" == "develop"  ]; 
   echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ aaaa @@@@@@@@@@@@@@@@@@@@@@@"
   hostname
 
-  ./gradlew clean test uploadArchives -PnablarchRepoUsername=${NABLARCH_USER} -PnablarchRepoPassword=aaa \
+  ./gradlew clean test -PnablarchRepoUsername=${NABLARCH_USER} -PnablarchRepoPassword=aaa \
                            -PnablarchRepoReferenceUrl=${DEVELOP_REPO_URL} -PnablarchRepoReferenceName=${DEVELOP_REPO_NAME} \
                            -PnablarchRepoDeployUrl=dav:${DEVELOP_REPO_URL} -PnablarchRepoName=${DEVELOP_REPO_NAME} \
                            -PdevelopLibUrl=${DEVELOP_REPO_URL}/${DEVELOP_REPO_NAME}
