@@ -5,7 +5,6 @@ export TZ=Asia/Tokyo
 
 cd ${TRAVIS_BUILD_DIR}
 
-
 ### Main Build.
 # if it creates pull request, execute `gradlew build` only.
 # if it merges pull request to develop branch or dilectly commit on develop branch, execute `gradlew uploadArchives`.
@@ -16,9 +15,8 @@ if [ "${TRAVIS_PULL_REQUEST}" == "false" -a "${TRAVIS_BRANCH}" == "develop"  ]; 
                            -PnablarchRepoDeployUrl=dav:${DEVELOP_REPO_URL} -PnablarchRepoName=${DEVELOP_REPO_NAME} \
                            -PdevelopLibUrl=${DEVELOP_REPO_URL}/${DEVELOP_REPO_NAME} --no-daemon
 else
-  echo "@@@@@@@ test @@@@@@@"
   ./gradlew clean test uploadArchives -PnablarchRepoUsername=hoge -PnablarchRepoPassword=hoge \
-                  -PnablarchRepoReferenceUrl=hoge -PnablarchRepoReferenceName=hoge \
-                  -PnablarchRepoDeployUrl=dav:hoge -PnablarchRepoName=hoge \
-                  -PdevelopLibUrl=hoge --no-daemon
+                  -PnablarchRepoReferenceUrl=${DEVELOP_REPO_URL} -PnablarchRepoReferenceName=${DEVELOP_REPO_NAME} \
+                  -PnablarchRepoDeployUrl=dav:${DEVELOP_REPO_URL} -PnablarchRepoName=${DEVELOP_REPO_NAME} \
+                  -PdevelopLibUrl=${DEVELOP_REPO_URL}/${DEVELOP_REPO_NAME} --no-daemon
 fi
