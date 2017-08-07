@@ -1,7 +1,5 @@
 // -*- mode: groovy; coding: utf-8-unix -*-
 
-logging.level = LogLevel.DEBUG
-
 
 group = 'com.nablarch.framework'
 version = '1.1.1'
