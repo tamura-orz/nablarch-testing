@@ -20,5 +20,5 @@ else
   ./gradlew clean test uploadArchives -PnablarchRepoUsername=hoge -PnablarchRepoPassword=hoge \
                   -PnablarchRepoReferenceUrl=hoge -PnablarchRepoReferenceName=hoge \
                   -PnablarchRepoDeployUrl=dav:hoge -PnablarchRepoName=hoge \
-                  -PdevelopLibUrl=${DEVELOP_REPO_URL}/${DEVELOP_REPO_NAME} --no-daemon
+                  -PdevelopLibUrl=hoge --no-daemon
 fi
