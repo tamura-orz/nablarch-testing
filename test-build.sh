@@ -20,10 +20,15 @@ if [ "${TRAVIS_PULL_REQUEST}" == "false" -a "${TRAVIS_BRANCH}" == "develop"  ]; 
                            -PdevelopLibUrl=${DEVELOP_REPO_URL}/${DEVELOP_REPO_NAME} --no-daemon
 else
   echo "@@@@@@@@@@@ test @@@@@@@@@@@@"
-  cat $0
   hostname
   rm -rf /tmp/*.*
   ls -la /tmp
+
+  cat /tmp/hosts_127_0_0_1
+  echo "@@@@@@@@@@@@@@@@@@@@@@@"
+  cat /tmp/hosts_sans_127_0_0_1
+
+
   ./gradlew clean test -PnablarchRepoUsername=hoge -PnablarchRepoPassword=hoge \
                   -PnablarchRepoReferenceUrl=${DEVELOP_REPO_URL} -PnablarchRepoReferenceName=${DEVELOP_REPO_NAME} \
                   -PnablarchRepoDeployUrl=dav:${DEVELOP_REPO_URL} -PnablarchRepoName=${DEVELOP_REPO_NAME} \
