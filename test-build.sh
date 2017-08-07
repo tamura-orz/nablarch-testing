@@ -22,6 +22,7 @@ else
   echo "@@@@@@@@@@@ test @@@@@@@@@@@@"
   hostname
   rm -rf /tmp/*.*
+  ls -la /tmp
   ./gradlew clean test -PnablarchRepoUsername=hoge -PnablarchRepoPassword=hoge \
                   -PnablarchRepoReferenceUrl=${DEVELOP_REPO_URL} -PnablarchRepoReferenceName=${DEVELOP_REPO_NAME} \
                   -PnablarchRepoDeployUrl=dav:${DEVELOP_REPO_URL} -PnablarchRepoName=${DEVELOP_REPO_NAME} \
