@@ -14,6 +14,9 @@ cd ${TRAVIS_BUILD_DIR}
 # if it merges pull request to develop branch or dilectly commit on develop branch, execute `gradlew uploadArchives`.
 # Waning, TRAVIS_PULL_REQUEST variable is 'false' or pull request number, 1,2,3 and so on.
 if [ "${TRAVIS_PULL_REQUEST}" == "false" -a "${TRAVIS_BRANCH}" == "develop"  ]; then
+  echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ aaaa @@@@@@@@@@@@@@@@@@@@@@@"
+  hostname
+
   ./gradlew clean test uploadArchives -PnablarchRepoUsername=${NABLARCH_USER} -PnablarchRepoPassword=aaa \
                            -PnablarchRepoReferenceUrl=${DEVELOP_REPO_URL} -PnablarchRepoReferenceName=${DEVELOP_REPO_NAME} \
                            -PnablarchRepoDeployUrl=dav:${DEVELOP_REPO_URL} -PnablarchRepoName=${DEVELOP_REPO_NAME} \
