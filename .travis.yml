@@ -1,8 +1,4 @@
-dist: precise
 language: java
-addons:
-  hosts:
-    - localhost
 branches:
   only:
   - master
