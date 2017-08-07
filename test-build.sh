@@ -1,10 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-
-### Import nablarch env.
-CUR=$(cd $(dirname $0); pwd)
-source ${CUR}/nablarch_env
+export TZ=Asia/Tokyo
 
 cd ${TRAVIS_BUILD_DIR}
 
