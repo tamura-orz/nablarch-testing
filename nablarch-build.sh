@@ -3,8 +3,8 @@ set -euo pipefail
 
 
 ### Import nablarch env.
-CUR=$(cd $(dirname $0); pwd)
-source ${CUR}/nablarch_env
+#CUR=$(cd $(dirname $0); pwd)
+source $HOME/build-script/travis-ci/nablarch_env
 
 cd ${TRAVIS_BUILD_DIR}
 
