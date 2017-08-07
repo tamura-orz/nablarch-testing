@@ -3,6 +3,9 @@ set -euo pipefail
 
 export TZ=Asia/Tokyo
 
+export DEVELOP_REPO_URL=http://ec2-52-199-35-248.ap-northeast-1.compute.amazonaws.com
+export DEVELOP_REPO_NAME=repo
+
 cd ${TRAVIS_BUILD_DIR}
 
 ### Main Build.
