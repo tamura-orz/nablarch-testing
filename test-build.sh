@@ -29,7 +29,7 @@ else
 
 
   ls -la /tmp
-  ./gradlew clean test -PnablarchRepoUsername=hoge -PnablarchRepoPassword=hoge \
+  ./gradlew clean test -Djava.net.preferIPv4Stack=true -PnablarchRepoUsername=hoge -PnablarchRepoPassword=hoge \
                   -PnablarchRepoReferenceUrl=${DEVELOP_REPO_URL} -PnablarchRepoReferenceName=${DEVELOP_REPO_NAME} \
                   -PnablarchRepoDeployUrl=dav:${DEVELOP_REPO_URL} -PnablarchRepoName=${DEVELOP_REPO_NAME} \
                   -PdevelopLibUrl=${DEVELOP_REPO_URL}/${DEVELOP_REPO_NAME} --no-daemon
