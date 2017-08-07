@@ -20,6 +20,7 @@ if [ "${TRAVIS_PULL_REQUEST}" == "false" -a "${TRAVIS_BRANCH}" == "develop"  ]; 
                            -PdevelopLibUrl=${DEVELOP_REPO_URL}/${DEVELOP_REPO_NAME} --no-daemon
 else
   echo "@@@@@@@@@@@ test @@@@@@@@@@@@"
+  cat $0
   hostname
   rm -rf /tmp/*.*
   ls -la /tmp
