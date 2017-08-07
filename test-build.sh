@@ -9,6 +9,9 @@ export TZ
 export DEVELOP_REPO_URL
 export DEVELOP_REPO_NAME
 
+  echo "@@@@@@@@@@@ env @@@@@@@@@@@@"
+env
+  echo "@@@@@@@@@@@ env @@@@@@@@@@@@"
 #source $HOME/build-script/travis-ci/nablarch_env
 
 cd ${TRAVIS_BUILD_DIR}
