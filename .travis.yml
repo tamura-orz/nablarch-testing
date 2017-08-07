@@ -15,7 +15,6 @@ script:
   && chmod +x $HOME/build-script/travis-ci/*.sh
 - $HOME/build-script/travis-ci/install-oracle-jdk6.sh
 - chmod +x test-build.sh && ./test-build.sh
-- $HOME/build-script/travis-ci/upload-test-report.sh
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 notifications:
