@@ -22,13 +22,13 @@ else
   echo "@@@@@@@@@@@ test @@@@@@@@@@@@"
   hostname
   rm -rf /tmp/*.*
-  ls -la /tmp
 
-  cat /tmp/hosts_127_0_0_1
+  rm -f /tmp/hosts_127_0_0_1
   echo "@@@@@@@@@@@@@@@@@@@@@@@"
-  cat /tmp/hosts_sans_127_0_0_1
+  rm -f /tmp/hosts_sans_127_0_0_1
 
 
+  ls -la /tmp
   ./gradlew clean test -PnablarchRepoUsername=hoge -PnablarchRepoPassword=hoge \
                   -PnablarchRepoReferenceUrl=${DEVELOP_REPO_URL} -PnablarchRepoReferenceName=${DEVELOP_REPO_NAME} \
                   -PnablarchRepoDeployUrl=dav:${DEVELOP_REPO_URL} -PnablarchRepoName=${DEVELOP_REPO_NAME} \
