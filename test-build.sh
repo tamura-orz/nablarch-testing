@@ -21,6 +21,7 @@ if [ "${TRAVIS_PULL_REQUEST}" == "false" -a "${TRAVIS_BRANCH}" == "develop"  ]; 
 else
   echo "@@@@@@@@@@@ test @@@@@@@@@@@@"
   hostname
+  cat $0
 
 
   ls -la /tmp
