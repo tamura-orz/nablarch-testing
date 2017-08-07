@@ -1,9 +1,13 @@
 #!/bin/bash -x
 #set -euo pipefail
 
-export TZ="Asia/Tokyo"
-export DEVELOP_REPO_URL="http://ec2-52-199-35-248.ap-northeast-1.compute.amazonaws.com"
-export DEVELOP_REPO_NAME="repo"
+TZ="Asia/Tokyo"
+DEVELOP_REPO_URL="http://ec2-52-199-35-248.ap-northeast-1.compute.amazonaws.com"
+DEVELOP_REPO_NAME="repo"
+
+export TZ
+export DEVELOP_REPO_URL
+export DEVELOP_REPO_NAME
 
 #source $HOME/build-script/travis-ci/nablarch_env
 
